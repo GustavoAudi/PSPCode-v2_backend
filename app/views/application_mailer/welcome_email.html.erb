@@ -1,0 +1,10 @@
+<div>
+  <p>Dear <%= @user.full_name %></p>
+  <p>Welcome to PSP course.</p>
+  <p>Let's get started. Sign in <a href=<%= ENV['HOST_URL'] %>> here</a> using the credentials below. We strongly suggest you to update your password right after signing in.</p>
+  <p>These are your credentials:</p>
+  <div style="margin: 2%; background: #CCC6; border-radius: 11px; padding: 2%; width: fit-content; min-width: 70%;">
+  <p>Email: <%= @user.email %></p>
+  <p>Password: <%= @generated_password %></p>
+  </div>
+</div>

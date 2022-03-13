@@ -1,0 +1,13 @@
+<div>
+  <%= @sender.full_name %> has assigned you <b><%= @assigned_project.course_project_instance.name %></b><br><br>
+  <p>Once completed, the exercise must be delivered to your tutor (through the platform) within the period defined for each of them.
+</p>
+<b>The delivery must contain:</b>
+<ul>
+  <li>Source code of the exercise.</li>
+  <li>A .pdf or .doc file with a screenshot of the results of the execution of each of the tests requested in the exercise.</li>
+</ul>
+
+  <p><%= link_to 'See the project assigned', @assigned_project.project_url %></p>
+<div>
+

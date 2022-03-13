@@ -1,0 +1,5 @@
+<div>
+  You have receive a new message from <a href="mailto:<%= @sender.email %>"><%= @sender.full_name %>:</a>
+   <p style="margin: 2%; background: #CCC6; border-radius: 11px; padding: 2%; width: fit-content; min-width: 70%;"><%= @message.text %></p>
+  <p><a href=<%= @assigned_project.project_url %>>See the message in context</a></p>
+</div>

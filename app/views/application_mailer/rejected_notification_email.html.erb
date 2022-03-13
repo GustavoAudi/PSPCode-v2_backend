@@ -1,0 +1,9 @@
+<div>
+  <%= @sender.full_name %> rejected your project <b><%= @assigned_project.course_project_instance.name %></b>
+  <div style="margin: 5%">
+    <p>Attachment: <%= @message.file&.url %></p>
+    <p>Message: <%= @message.text %></p>
+  </div>
+  <p><%= link_to 'See the project in context', @assigned_project.project_url %></p>
+<div>
+

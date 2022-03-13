@@ -1,0 +1,82 @@
+$aquaPrimaryColor: #0DC0BB;
+$greyPrimaryColor: #A5B7BE;
+$darkBackground: #393E3F;
+$inputColor: #a5b7be;
+
+#login-wrapper {
+  text-align: center;
+  padding-top: 23.95vh;
+  height:100vh;
+  background-color: $darkBackground;
+
+  .login-title {
+    font-size: 32.85pt;
+    font-weight: bold;
+    color: $greyPrimaryColor;
+
+    span {
+      color: $aquaPrimaryColor;
+    }
+  }
+
+  .login-field {
+    background: none;
+    width: 20%;
+    border: none;
+    border-bottom: solid 2px $inputColor;
+    padding-bottom: 1%;
+    margin-bottom: 1.5%;
+    color: $inputColor;
+    font-size: 10pt;
+
+    &:focus {
+      outline: none;
+    }
+
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
+
+    &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color: $inputColor;
+      font-size: 10pt;
+    }
+    &:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color: $inputColor;
+      font-size: 10pt;
+      opacity:  1;
+    }
+    &::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color: $inputColor;
+      font-size: 10pt;
+      opacity:  1;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+      color: $inputColor;
+      font-size: 10pt;
+    }
+    &::-ms-input-placeholder { /* Microsoft Edge */
+      color: $inputColor;
+      font-size: 10pt;
+    }
+  }
+
+  .submit-btn {
+    width: 6%;
+    height: 24.9%;
+    padding: 1vh 0;
+    -webkit-appearance: none;
+    background: $aquaPrimaryColor;
+    border-radius: 16pt;
+    border: none;
+    color: white;
+    font-size: 11pt;
+    margin-bottom: 1%;
+  }
+
+  .forgot-password {
+    color: $aquaPrimaryColor;
+    text-decoration: none;
+  }
+}
+
