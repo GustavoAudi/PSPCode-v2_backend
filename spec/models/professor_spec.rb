@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: professors
@@ -41,7 +43,7 @@ RSpec.describe Professor do
 
     describe '#email_user_professor_uniqueness' do
       let!(:email) { Faker::Internet.email }
-      let!(:professor)  { build :professor, email: email }
+      let!(:professor) { build :professor, email: }
 
       context 'when professor is not taken by any professor or professor' do
         it 'validates professor' do
@@ -51,7 +53,7 @@ RSpec.describe Professor do
 
       context 'when email is already taken' do
         context 'when email is taken by a user' do
-          let!(:user) { create :user, email: email }
+          let!(:user) { create :user, email: }
 
           it 'does not validate professor' do
             expect(professor.valid?).to be_falsey
@@ -60,7 +62,7 @@ RSpec.describe Professor do
         end
 
         context 'when email is taken by another professor' do
-          let!(:another_professor) { create :professor, email: email }
+          let!(:another_professor) { create :professor, email: }
 
           it 'does not validate professor' do
             expect(professor.valid?).to be_falsey

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 
 require 'factory_girl_rails'
 require 'helpers'

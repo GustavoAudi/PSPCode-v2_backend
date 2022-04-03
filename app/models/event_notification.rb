@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information #
 # Table name: event_notifications
 #
@@ -27,7 +29,8 @@ class EventNotification < Notification
     when 'assigned'
       MailerAssignedNotificationJob.perform_now(status, receiver, originator, assigned_project)
     when 'being_corrected'
-      MailerSubmittedNotificationJob.perform_now(status, receiver, originator, assigned_project, project_delivery)
+      MailerSubmittedNotificationJob.perform_now(status, receiver, originator, assigned_project,
+                                                 project_delivery)
     end
   end
 end

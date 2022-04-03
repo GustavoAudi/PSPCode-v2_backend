@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -27,7 +27,8 @@ module Api
         end
 
         def message_params
-          params.require(:message).permit(:text, :message_type).merge!(sender: current_authenticated)
+          params.require(:message).permit(:text,
+                                          :message_type).merge!(sender: current_authenticated)
         end
 
         def user

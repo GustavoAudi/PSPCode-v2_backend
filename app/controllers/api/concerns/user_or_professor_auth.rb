@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module Concerns
     module UserOrProfessorAuth
@@ -10,16 +12,16 @@ module Api
 
       def authenticate_user_or_professor!
         return if current_user || current_professor
+
         render json: { errors: [I18n.t('devise.failure.unauthenticated')] }, status: 401
       end
 
       def check_user_authorization
-        if user_signed_in?
-          if params[:user_id].present?
-            return if params[:user_id].to_i == current_user.id
-            fail Exceptions::AuthorizationException.new('user_id'),
-                 'Unauthorized access for user with id'
-          end
+        if user_signed_in? && params[:user_id].present?
+          return if params[:user_id].to_i == current_user.id
+
+          raise Exceptions::AuthorizationException.new('user_id'),
+                'Unauthorized access for user with id'
         end
       end
 

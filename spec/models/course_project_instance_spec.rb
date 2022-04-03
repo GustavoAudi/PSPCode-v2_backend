@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: course_project_instances
@@ -38,7 +40,7 @@ describe CourseProjectInstance do
 
       context 'when project start_date is before course start_date' do
         let!(:course_project_instance) do
-          build :course_project_instance, course: course,
+          build :course_project_instance, course:,
                                           start_date: course.start_date - 1.day,
                                           end_date: Date.today + 4.days
         end
@@ -52,7 +54,7 @@ describe CourseProjectInstance do
 
       context 'when project start_date is after course end_date' do
         let!(:course_project_instance) do
-          build :course_project_instance, course: course,
+          build :course_project_instance, course:,
                                           start_date: course.end_date + 1.day,
                                           end_date: Date.today + 20.days
         end
@@ -66,7 +68,7 @@ describe CourseProjectInstance do
 
       context 'when project end_date is before course start_date' do
         let!(:course_project_instance) do
-          build :course_project_instance, course: course,
+          build :course_project_instance, course:,
                                           start_date: course.start_date,
                                           end_date: course.start_date - 1.day
         end
@@ -80,7 +82,7 @@ describe CourseProjectInstance do
 
       context 'when project start_date is after course end_date' do
         let!(:course_project_instance) do
-          build :course_project_instance, course: course,
+          build :course_project_instance, course:,
                                           start_date: course.start_date + 1.day,
                                           end_date: course.end_date + 1.day
         end
@@ -94,7 +96,7 @@ describe CourseProjectInstance do
 
       context 'when start_date and end_date of project are correct' do
         let!(:course_project_instance) do
-          build :course_project_instance, course: course,
+          build :course_project_instance, course:,
                                           start_date: course.start_date + 1.day,
                                           end_date: course.end_date - 1.day
         end
@@ -112,7 +114,7 @@ describe CourseProjectInstance do
         let!(:course_project) do
           CourseProjectInstance.new start_date: course.start_date,
                                     end_date: course.start_date - 1.day,
-                                    project: project
+                                    project:
         end
 
         it 'does not create the record' do
@@ -133,14 +135,14 @@ describe CourseProjectInstance do
       context 'when an assigned project changes its status' do
         context 'for assigned_projects' do
           it 'increase the counter for the arrival status' do
-            expect { create(:assigned_project, course_project_instance: course_project_instance) }
+            expect { create(:assigned_project, course_project_instance:) }
               .to change { course_project_instance.reload.assigned_count }.by(1)
           end
         end
 
         context 'for working_projects' do
           let!(:assigned_project) do
-            create(:assigned_project, course_project_instance: course_project_instance)
+            create(:assigned_project, course_project_instance:)
           end
 
           it 'increase the counter for the arrival status' do
@@ -156,7 +158,7 @@ describe CourseProjectInstance do
 
         context 'for working projects' do
           let!(:assigned_project) do
-            create(:assigned_project, course_project_instance: course_project_instance)
+            create(:assigned_project, course_project_instance:)
           end
 
           it 'increase the counter for the arrival status' do
@@ -172,7 +174,7 @@ describe CourseProjectInstance do
 
         context 'for being_corrected projects' do
           let!(:assigned_project) do
-            create(:assigned_project, course_project_instance: course_project_instance)
+            create(:assigned_project, course_project_instance:)
           end
 
           before { assigned_project.update! status: :working }
@@ -190,7 +192,7 @@ describe CourseProjectInstance do
 
         context 'for approved projects' do
           let!(:assigned_project) do
-            create(:assigned_project, course_project_instance: course_project_instance)
+            create(:assigned_project, course_project_instance:)
           end
 
           before do
@@ -211,7 +213,7 @@ describe CourseProjectInstance do
 
         context 'for need_correction projects' do
           let!(:assigned_project) do
-            create(:assigned_project, course_project_instance: course_project_instance)
+            create(:assigned_project, course_project_instance:)
           end
 
           before do

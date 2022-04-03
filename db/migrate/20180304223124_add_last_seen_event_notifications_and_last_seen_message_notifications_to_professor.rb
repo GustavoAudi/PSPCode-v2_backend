@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddLastSeenEventNotificationsAndLastSeenMessageNotificationsToProfessor < ActiveRecord::Migration[5.1]
   def change
     add_column :professors, :last_seen_event_notification, :datetime

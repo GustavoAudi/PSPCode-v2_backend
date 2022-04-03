@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assigned_projects
@@ -36,10 +38,10 @@ describe AssignedProject do
     describe 'user_course_project_instance_consistency' do
       let(:user) { create :user }
       let(:course) { create :course }
-      let(:course_project_instance) { create :course_project_instance, course: course }
+      let(:course_project_instance) { create :course_project_instance, course: }
       let(:assigned_project) do
-        build :assigned_project, course_project_instance: course_project_instance,
-                                 user: user
+        build :assigned_project, course_project_instance:,
+                                 user:
       end
 
       context 'when user does not belong to the course from which the project want to be assigned' do
@@ -52,7 +54,7 @@ describe AssignedProject do
       context 'when user belongs to the course from which the project want to be assigned' do
         before do
           user.professor.courses << course
-          user.update! course: course
+          user.update! course:
         end
 
         it 'does not validate record' do
@@ -135,7 +137,7 @@ describe AssignedProject do
           assigned_project.update! status: :approved
         end
 
-        [:assigned, :working, :being_corrected, :need_correction].each do |status|
+        %i[assigned working being_corrected need_correction].each do |status|
           context 'when trying to assign a new state' do
             it 'raise an eror' do
               assigned_project.status = status
@@ -175,20 +177,20 @@ describe AssignedProject do
     describe 'before_create' do
       describe '#assign_process' do
         let(:course)  { create :course }
-        let(:user)    { create :user, course: course }
+        let(:user)    { create :user, course: }
         let(:process) { create :psp_process }
-        let(:project) { create :project, process: process }
+        let(:project) { create :project, process: }
         let(:course_project_instance) do
           create :course_project_instance,
-                 project: project,
-                 course: course,
+                 project:,
+                 course:,
                  start_date: course.start_date,
                  end_date: course.end_date - 1.day
         end
         let(:assigned_project) do
           build :assigned_project,
-                user: user,
-                course_project_instance: course_project_instance
+                user:,
+                course_project_instance:
         end
 
         it 'assigns correct process' do

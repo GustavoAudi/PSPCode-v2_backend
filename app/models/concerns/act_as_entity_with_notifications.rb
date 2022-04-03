@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ActAsEntityWithNotifications
   extend ActiveSupport::Concern
 

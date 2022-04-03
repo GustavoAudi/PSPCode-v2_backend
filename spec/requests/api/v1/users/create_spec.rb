@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'POST api/v1/users/', type: :request do
@@ -15,11 +17,11 @@ describe 'POST api/v1/users/', type: :request do
     let(:params) do
       {
         user: {
-          email: email,
-          password: password,
-          password_confirmation: password_confirmation,
-          first_name: first_name,
-          last_name: last_name,
+          email:,
+          password:,
+          password_confirmation:,
+          first_name:,
+          last_name:,
           course_id: course.id
         }
       }
@@ -52,7 +54,7 @@ describe 'POST api/v1/users/', type: :request do
 
       it 'does not create a user' do
         expect do
-          post user_registration_path, params: params, as: :json
+          post user_registration_path, params:, as: :json
         end.not_to change { User.count }
       end
 

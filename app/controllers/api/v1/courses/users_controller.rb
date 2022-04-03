@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -9,7 +9,7 @@ module Api
         # TODO, make this better, views, etc
         def index
           @users = course.students.includes(:professor)
-                                  .includes(current_assigned_project: :course_project_instance)
+                         .includes(current_assigned_project: :course_project_instance)
           render 'api/v1/courses/users/index'
         end
 

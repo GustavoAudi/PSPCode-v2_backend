@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -97,7 +99,7 @@ describe User do
 
     describe '#email_user_professor_uniqueness' do
       let!(:email) { Faker::Internet.email }
-      let!(:user)  { build :user, email: email }
+      let!(:user)  { build :user, email: }
 
       context 'when user is not taken by any user or professor' do
         it 'validates user' do
@@ -107,7 +109,7 @@ describe User do
 
       context 'when user is already taken' do
         context 'when email is taken by a professor' do
-          let!(:professor) { create :professor, email: email }
+          let!(:professor) { create :professor, email: }
 
           it 'does not validate user' do
             expect(user.valid?).to be_falsey
@@ -116,7 +118,7 @@ describe User do
         end
 
         context 'when email is taken by a user' do
-          let!(:another_user) { create :user, email: email }
+          let!(:another_user) { create :user, email: }
 
           it 'does not validate user' do
             expect(user.valid?).to be_falsey

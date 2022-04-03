@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -77,7 +79,7 @@ class User < ApplicationRecord
   attr_accessor :generated_password
 
   def self.from_social_provider(provider, user_params)
-    where(provider: provider, uid: user_params['id']).first_or_create do |user|
+    where(provider:, uid: user_params['id']).first_or_create do |user|
       user.password = Devise.friendly_token[0, 20]
       user.assign_attributes user_params.except('id')
     end
@@ -86,6 +88,7 @@ class User < ApplicationRecord
   def first_approved_assigned_project
     assigned_project = assigned_projects.first
     return unless assigned_project.approved?
+
     assigned_project
   end
 
@@ -106,6 +109,7 @@ class User < ApplicationRecord
 
   def professor_of_same_course
     return if professor.blank? || course.blank? || professor.courses.include?(course)
+
     errors.add(:professor, 'Must belong to the same course')
   end
 
@@ -123,7 +127,7 @@ class User < ApplicationRecord
   # Between check & insert another insert can happen. This situation will not happen
   # since the users are only created by professors and users cannot update their email.
   def email_user_professor_uniqueness
-    return errors.add(:email, 'has already been taken') if Professor.exists?(email: email)
+    return errors.add(:email, 'has already been taken') if Professor.exists?(email:)
   end
 
   def uses_email?

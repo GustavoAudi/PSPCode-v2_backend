@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
   default from: ENV['FROM_EMAIL_ADDRESS']
   layout 'mailer'
@@ -14,14 +16,14 @@ class ApplicationMailer < ActionMailer::Base
     @status = status
     @sender = sender.decorate
     @assigned_project = assigned_project.decorate
-    mail(to: receiver.email, subject: "PSP: The status of your project has changed")
+    mail(to: receiver.email, subject: 'PSP: The status of your project has changed')
   end
 
   def assigned_notification_email(status, receiver, sender, assigned_project)
     @status = status
     @sender = sender.decorate
     @assigned_project = assigned_project.decorate
-    mail(to: receiver.email, subject: "PSP: New Project assigned")
+    mail(to: receiver.email, subject: 'PSP: New Project assigned')
   end
 
   def submitted_notification_email(status, receiver, sender, assigned_project, project_delivery)
@@ -29,7 +31,7 @@ class ApplicationMailer < ActionMailer::Base
     @sender = sender.decorate
     @assigned_project = assigned_project.decorate
     @project_delivery = project_delivery
-    mail(to: receiver.email, subject: "PSP: New Project submitted")
+    mail(to: receiver.email, subject: 'PSP: New Project submitted')
   end
 
   def approved_notification_email(status, receiver, sender, assigned_project, message)
@@ -37,7 +39,7 @@ class ApplicationMailer < ActionMailer::Base
     @sender = sender.decorate
     @assigned_project = assigned_project.decorate
     @message = message
-    mail(to: receiver.email, subject: "PSP: Project approval")
+    mail(to: receiver.email, subject: 'PSP: Project approval')
   end
 
   def rejected_notification_email(status, receiver, sender, assigned_project, message)
@@ -45,7 +47,7 @@ class ApplicationMailer < ActionMailer::Base
     @sender = sender.decorate
     @assigned_project = assigned_project.decorate
     @message = message
-    mail(to: receiver.email, subject: "PSP: Project rejected")
+    mail(to: receiver.email, subject: 'PSP: Project rejected')
   end
 
   def welcome_email(user, generated_password)

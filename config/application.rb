@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -26,7 +28,7 @@ module App
 
     config.secret_key_base = ENV['SECRET_KEY_BASE']
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W[#{config.root}/lib]
 
     ActionMailer::Base.smtp_settings = {
       address: 'smtp.sendgrid.net',

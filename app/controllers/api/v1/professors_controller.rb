@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -15,7 +15,8 @@ module Api
       private
 
       def professor_params
-        params.require(:professor).permit(:last_seen_event_notification, :last_seen_message_notification)
+        params.require(:professor).permit(:last_seen_event_notification,
+                                          :last_seen_message_notification)
       end
 
       def professor

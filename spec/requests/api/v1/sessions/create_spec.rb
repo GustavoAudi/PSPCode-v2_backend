@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'POST api/v1/users/sign_in', type: :request do
   context 'for students' do
     let(:password) { 'password' }
-    let(:user)     { create(:user, password: password) }
+    let(:user)     { create(:user, password:) }
 
     context 'with correct params' do
       before do
@@ -11,10 +13,10 @@ describe 'POST api/v1/users/sign_in', type: :request do
           user:
             {
               email: user.email,
-              password: password
+              password:
             }
         }
-        post new_user_session_path, params: params, as: :json
+        post new_user_session_path, params:, as: :json
       end
 
       # it 'returns success' do
@@ -59,7 +61,7 @@ describe 'POST api/v1/users/sign_in', type: :request do
 
   context 'for professors' do
     let(:password)  { 'password' }
-    let(:professor) { create(:professor, password: password) }
+    let(:professor) { create(:professor, password:) }
 
     context 'with correct params' do
       before do
@@ -67,10 +69,10 @@ describe 'POST api/v1/users/sign_in', type: :request do
           user:
             {
               email: professor.email,
-              password: password
+              password:
             }
         }
-        post new_user_session_path, params: params, as: :json
+        post new_user_session_path, params:, as: :json
       end
 
       it 'returns success' do

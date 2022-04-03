@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module App
   class Application < Rails::Application
     config.middleware.insert_before 0, Rack::Cors do
@@ -5,8 +7,8 @@ module App
         origins '*'
         resource '*',
                  headers: :any,
-                 methods: [:get, :post, :options, :put, :delete],
-                 expose:  ['access-token', 'uid', 'client']
+                 methods: %i[get post options put delete],
+                 expose: %w[access-token uid client]
       end
     end
   end

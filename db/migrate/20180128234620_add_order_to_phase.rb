@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddOrderToPhase < ActiveRecord::Migration[5.1]
   def change
     # TODO, check if it's worth to add a null: false property

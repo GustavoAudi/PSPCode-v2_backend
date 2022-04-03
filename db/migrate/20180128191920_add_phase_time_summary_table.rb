@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddPhaseTimeSummaryTable < ActiveRecord::Migration[5.1]
   def change
     create_table :phase_time_summaries do |t|

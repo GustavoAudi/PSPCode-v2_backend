@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: defects
@@ -18,7 +20,8 @@
 #
 
 class Defect < ApplicationRecord
-  enum defect_type: ['Documentation', 'Syntax', 'Build, Package', 'Assignment', 'Interface', 'Checking', 'Data', 'Function', 'System', 'Environment']
+  enum defect_type: ['Documentation', 'Syntax', 'Build, Package', 'Assignment', 'Interface',
+                     'Checking', 'Data', 'Function', 'System', 'Environment']
 
   default_scope { order(:id) }
 
@@ -32,7 +35,7 @@ class Defect < ApplicationRecord
             :fixed_time,
             :description, presence: true
 
-  scope :with_fix_defect,  -> { where 'fix_defect is not NULL' }
+  scope :with_fix_defect, -> { where 'fix_defect is not NULL' }
 
   def phase_detected
     phase_instance.phase

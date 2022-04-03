@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDefectsTable < ActiveRecord::Migration[5.1]
   def change
     create_table :defects do |t|

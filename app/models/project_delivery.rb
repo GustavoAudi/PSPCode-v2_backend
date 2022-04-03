@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: project_deliveries
@@ -41,9 +43,9 @@ class ProjectDelivery < ApplicationRecord
       last_project_deliveries_ids << previous_assigned_project.project_deliveries.last.id
     end
 
-
     {
-      phases: phase_summary(project_delivery, user, assigned_project, last_project_deliveries_ids, phases),
+      phases: phase_summary(project_delivery, user, assigned_project, last_project_deliveries_ids,
+                            phases),
       locs: locs_summary(project_delivery, user, last_project_deliveries_ids),
       defects_injected: defects_injected_summary(project_delivery,
                                                  user,
@@ -68,28 +70,26 @@ class ProjectDelivery < ApplicationRecord
 
   private
 
-  def phase_summary(project_delivery, user, assigned_project, last_project_deliveries_ids, phases)
+  def phase_summary(project_delivery, _user, _assigned_project, last_project_deliveries_ids, phases)
     result = []
     first_phase_instance = project_delivery.phase_instances.where(first: true).order(id: :desc)&.first
     phases.each do |phase|
       result << { metric: phase.name,
-                  actual: project_delivery.phase_instances.where(phase: phase).sum(:elapsed_time),
+                  actual: project_delivery.phase_instances.where(phase:).sum(:elapsed_time),
                   plan: '',
                   to_date: PhaseInstance.where(project_delivery: last_project_deliveries_ids,
-                                               phase: phase)
-                                        .sum(:elapsed_time)
-                }
+                                               phase:)
+                                        .sum(:elapsed_time) }
     end
 
     result.push({ metric: 'TOTAL',
                   actual: result.map { |x| x[:actual] }.sum,
                   plan: first_phase_instance&.plan_time || 0,
-                  to_date: result.map { |x| x[:to_date] }.sum
-                })
+                  to_date: result.map { |x| x[:to_date] }.sum })
     result
   end
 
-  def locs_summary(project_delivery, user, last_project_deliveries_ids)
+  def locs_summary(project_delivery, _user, last_project_deliveries_ids)
     result = []
     first_phase_instance = project_delivery.phase_instances.where(first: true).order(id: :desc)&.first
     last_phase_instance = project_delivery.phase_instances.where(last: true).order(id: :desc)&.first
@@ -102,7 +102,7 @@ class ProjectDelivery < ApplicationRecord
     total = last_phase_instance&.total || 0
     added = total - base + deleted - reused
 
-    to_date_base = PhaseInstance.joins("INNER JOIN ( SELECT project_delivery_id, MAX(id) AS MaxId FROM phase_instances WHERE phase_instances.first = true GROUP BY project_delivery_id) groupedpi ON phase_instances.project_delivery_id = groupedpi.project_delivery_id AND phase_instances.id = groupedpi.MaxId ")
+    to_date_base = PhaseInstance.joins('INNER JOIN ( SELECT project_delivery_id, MAX(id) AS MaxId FROM phase_instances WHERE phase_instances.first = true GROUP BY project_delivery_id) groupedpi ON phase_instances.project_delivery_id = groupedpi.project_delivery_id AND phase_instances.id = groupedpi.MaxId ')
                                 .where(project_delivery_id: last_project_deliveries_ids)
                                 .sum(:actual_base_loc)
 
@@ -111,28 +111,28 @@ class ProjectDelivery < ApplicationRecord
                                     SUM(modified) AS modified,
                                     SUM(deleted) AS deleted,
                                     SUM(new_reusable) AS new_reusable")
-      .joins("INNER JOIN ( SELECT project_delivery_id, MAX(id) AS MaxId FROM phase_instances WHERE last = true GROUP BY project_delivery_id) groupedpi ON phase_instances.project_delivery_id = groupedpi.project_delivery_id AND phase_instances.id = groupedpi.MaxId ")
+                           .joins('INNER JOIN ( SELECT project_delivery_id, MAX(id) AS MaxId FROM phase_instances WHERE last = true GROUP BY project_delivery_id) groupedpi ON phase_instances.project_delivery_id = groupedpi.project_delivery_id AND phase_instances.id = groupedpi.MaxId ')
                            .where(project_delivery_id: last_project_deliveries_ids)[0]
 
     to_date_added = to_date.total.to_i - to_date_base.to_i + to_date.deleted.to_i - to_date.reused.to_i
 
     result.push({ metric: 'BASE', actual: base, plan: '', to_date: '' })
-    result.push({ metric: 'DELETED', actual: deleted ,plan: '', to_date: '' })
+    result.push({ metric: 'DELETED', actual: deleted, plan: '', to_date: '' })
     result.push({ metric: 'MODIFIED', actual: modified, plan: '', to_date: '' })
     result.push({ metric: 'ADDED', actual: added, plan: '', to_date: '' })
     result.push({ metric: 'REUSED', actual: reused, plan: '', to_date: to_date.reused })
     result.push({ metric: 'ADDED & MODIFIED',
                   actual: added + modified,
                   plan: plan_loc,
-                  to_date: to_date_added.to_i + to_date.modified.to_i
-    })
-    result.push({ metric: 'NEW REUSABLE', actual: new_reusable, plan: '', to_date: to_date.new_reusable.to_i })
+                  to_date: to_date_added.to_i + to_date.modified.to_i })
+    result.push({ metric: 'NEW REUSABLE', actual: new_reusable, plan: '',
+                  to_date: to_date.new_reusable.to_i })
     result.push({ metric: 'TOTAL', actual: total, plan: '', to_date: to_date.total })
 
     result
   end
 
-  def defects_injected_summary(project_delivery, user, assigned_project, last_project_deliveries_ids, phases)
+  def defects_injected_summary(project_delivery, _user, _assigned_project, last_project_deliveries_ids, phases)
     result = []
 
     phases.each do |ph|
@@ -146,43 +146,40 @@ class ProjectDelivery < ApplicationRecord
                       .count
 
       result.push({ metric: ph.name,
-                    actual: actual,
+                    actual:,
                     plan: '',
-                    to_date: to_date
-                 })
+                    to_date: })
     end
 
     result.push({ metric: 'TOTAL',
                   actual: result.map { |x| x[:actual] }.sum,
-                  to_date: result.map { |x| x[:to_date] }.sum
-                })
+                  to_date: result.map { |x| x[:to_date] }.sum })
 
     result
   end
 
-  def defects_removed_summary(project_delivery, user, assigned_project, last_project_deliveries_ids, phases)
+  def defects_removed_summary(project_delivery, _user, _assigned_project, last_project_deliveries_ids, phases)
     result = []
 
     phases.each do |ph|
       actual = Defect.joins(:phase_instance)
-                      .where(phase_instances: { project_delivery_id: project_delivery.id, phase_id: ph.id })
-                      .count
+                     .where(phase_instances: { project_delivery_id: project_delivery.id,
+                                               phase_id: ph.id })
+                     .count
       to_date = Defect.joins(:phase_instance)
                       .where(phase_instances: { project_delivery_id: last_project_deliveries_ids,
                                                 phase_id: ph.id })
-                       .count
+                      .count
 
       result.push({ metric: ph.name,
-                    actual: actual,
+                    actual:,
                     plan: '',
-                    to_date: to_date
-                 })
+                    to_date: })
     end
 
     result.push({ metric: 'TOTAL',
                   actual: result.map { |x| x[:actual] }.sum,
-                  to_date: result.map { |x| x[:to_date] }.sum
-                })
+                  to_date: result.map { |x| x[:to_date] }.sum })
 
     result
   end

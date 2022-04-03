@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -37,8 +39,10 @@ class Message < ApplicationRecord
 
   def create_notification
     return if file.url.present?
+
     user = assigned_project.user
     receiver = sender == user ? user.professor : user
-    MessageNotification.create! assigned_project: assigned_project, originator: sender, receiver: receiver, message: self
+    MessageNotification.create! assigned_project:, originator: sender,
+                                receiver:, message: self
   end
 end
