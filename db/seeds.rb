@@ -10,13 +10,13 @@ Course.create! name: 'PSP 2018',
 Course.create! name: 'PSP 2017',
                description: 'Course to learn psp',
                start_date: Date.today - 1.year,
-               end_date: Date.today - 1.year + 6.months,
+               end_date: Date.today + 1.year + 6.months,
                additional_notes: ''
 
 Course.create! name: 'PSP 2016',
                description: 'Course to learn psp',
-               end_date: Date.today - 2.year + 6.months,
                start_date: Date.today - 2.year,
+               end_date: Date.today + 2.year + 6.months,
                additional_notes: ''
 
 # Creating phases
@@ -35,7 +35,7 @@ Phase.create! name: 'COMPILE', description: 'This phase is to compile the code (
 Phase.create! name: 'UNIT TEST', description: 'This phase is to test the code', order: 5,
               first: false, last: false
 
-Phase.create! name: 'POST MORTEN', description: 'This phase if estimations were correct', order: 5,
+Phase.create! name: 'POST MORTEN', description: 'This phase if estimations were correct', order: 6,
               first: false, last: true
 
 # Creating Processes
@@ -152,6 +152,10 @@ User.first(2).each do |user|
                  phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 31.minutes, description: 'Forgot ;'
 end
 
+
+# Clean all data bases
+=begin
+Phase.destroy_all
 User.destroy_all
 Professor.destroy_all
 Status.destroy_all
@@ -165,3 +169,5 @@ ProjectDelivery.destroy_all
 PhaseInstance.destroy_all
 Defect.destroy_all
 ProfessorCourse.destroy_all
+PspProcess.destroy_all
+=end
