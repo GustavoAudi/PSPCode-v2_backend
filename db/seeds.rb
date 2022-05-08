@@ -1,5 +1,24 @@
 # frozen_string_literal: true
 
+# Clean all data bases
+
+Phase.destroy_all
+User.destroy_all
+Professor.destroy_all
+Status.destroy_all
+MessageNotification.destroy_all
+EventNotification.destroy_all
+Course.destroy_all
+CourseProjectInstance.destroy_all
+AssignedProject.destroy_all
+Message.destroy_all
+ProjectDelivery.destroy_all
+PhaseInstance.destroy_all
+Defect.destroy_all
+ProfessorCourse.destroy_all
+PspProcess.destroy_all
+
+
 # Creating courses
 Course.create! name: 'PSP 2018',
                description: 'Course to learn psp',
@@ -97,10 +116,10 @@ Professor.create! first_name: 'Leticia',
                   email: 'leticia@fing.edu.uy',
                   password: :password
 
-Professor.create! first_name: 'Diego',
-                  last_name: 'Vallespir',
-                  email: 'diego@fing.edu.uy',
-                  password: :password
+Professor.create! first_name: 'Test',
+                  last_name: 'Test',
+                  email: 'test@fing.edu.uy',
+                  password: 'test12345'
 
 # Assign Professor to course
 Course.all.each do |course|
@@ -110,17 +129,9 @@ Course.all.each do |course|
 end
 
 # Creating users
-User.create! first_name: 'Guillermo', last_name: 'Tavidian', password: :password,
-             email: 'guillermo.tavidian@fing.edu.uy', approved_subjects: ['Calc 2'], programming_language: 'React', have_a_job: true, job_role: 'CTO Infocasas', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.first
+User.create! first_name: 'test2', last_name: 'test2', password: 'test12345',
+             email: 'test2@fing.edu.uy', approved_subjects: ['Calc 2'], programming_language: 'React', have_a_job: true, job_role: 'CTO Infocasas', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.third
 
-User.create! first_name: 'Guillermo', last_name: 'kuster', password: :password,
-             email: 'guillermo.kuster@fing.edu.uy', approved_subjects: ['Calc 2'], programming_language: 'Ruby', have_a_job: true, job_role: 'Senior Team Leader Rootstrap', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.first
-
-User.create! first_name: 'John', last_name: 'Doe', password: :password,
-             email: 'John.doe@fing.edu.uy', approved_subjects: [], programming_language: 'PHP', have_a_job: true, job_role: 'Developer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.first
-
-User.create! first_name: 'Jane', last_name: 'Doe', password: :password,
-             email: 'Jane.doe@fing.edu.uy', approved_subjects: [], programming_language: 'PHP', have_a_job: true, job_role: 'Developer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.first
 
 # Assign projects to students
 Course.first.students.each do |student|
@@ -151,23 +162,3 @@ User.first(2).each do |user|
   Defect.create! discovered_time: Time.now + 28.minutes, phase_injected: Phase.second,
                  phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 31.minutes, description: 'Forgot ;'
 end
-
-
-# Clean all data bases
-=begin
-Phase.destroy_all
-User.destroy_all
-Professor.destroy_all
-Status.destroy_all
-MessageNotification.destroy_all
-EventNotification.destroy_all
-Course.destroy_all
-CourseProjectInstance.destroy_all
-AssignedProject.destroy_all
-Message.destroy_all
-ProjectDelivery.destroy_all
-PhaseInstance.destroy_all
-Defect.destroy_all
-ProfessorCourse.destroy_all
-PspProcess.destroy_all
-=end

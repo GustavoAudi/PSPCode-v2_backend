@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '3.1.1'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.5'
@@ -11,7 +11,7 @@ gem 'carrierwave-base64', '~> 2.10.0'
 gem 'delayed_job_active_record', '~> 4.1.7'
 
 gem 'counter_culture', '~> 3.2.1'
-gem 'devise', '~> 4.8.1'
+gem 'devise'
 gem 'devise_token_auth', '~> 1.2.0'
 gem 'draper', '~> 4.0.2'
 gem 'fog-aws', '~> 3.13.0'
