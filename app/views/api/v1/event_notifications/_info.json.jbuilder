@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.id event_notification.id
 json.status event_notification.status
 json.created_at event_notification.created_at

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 FactoryGirl.define do
   factory :defect do
     discovered_time { Time.now }

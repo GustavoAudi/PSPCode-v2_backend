@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.message_notifications do
   json.array! @message_notifications do |message_notification|
     json.partial! 'api/v1/message_notifications/info', message_notification:

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Helpers
   # Helper method to parse a response
   #

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ChangeStartTypeEndTypeColumnTypeForPhaseInstances < ActiveRecord::Migration[5.1]
   def change
     change_column :phase_instances, :start_time,

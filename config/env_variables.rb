@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 begin
   ENV.update YAML.load(File.read('config/application.yml'))
 rescue StandardError

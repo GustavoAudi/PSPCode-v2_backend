@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateAssignedProjects < ActiveRecord::Migration[5.1]
   def change
     create_table :assigned_projects do |t|

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     class SessionsController < DeviseTokenAuth::SessionsController
@@ -72,6 +70,10 @@ module Api
 
       def resource_params
         params.require(:user).permit(:email, :password)
+      end
+
+      def edit
+        @route = Route.find(params[:id])
       end
 
       private

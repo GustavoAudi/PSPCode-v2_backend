@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
 describe '/api/v1/users/:user_id/assigned_projects/:assigned_project_id/project_deliveries/:project_delivery_id/defects',

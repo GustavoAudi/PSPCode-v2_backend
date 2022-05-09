@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddMessagesTable < ActiveRecord::Migration[5.1]
   def change
     create_table :messages do |t|

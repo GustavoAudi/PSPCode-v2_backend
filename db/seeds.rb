@@ -1,8 +1,7 @@
-# frozen_string_literal: true
-
 # Clean all data bases
 
 Phase.destroy_all
+Project.destroy_all
 User.destroy_all
 Professor.destroy_all
 Status.destroy_all
@@ -20,22 +19,22 @@ PspProcess.destroy_all
 
 
 # Creating courses
-Course.create! name: 'PSP 2018',
+Course.create! name: 'PSP 2020',
                description: 'Course to learn psp',
-               start_date: Date.today,
-               end_date: Date.today + 6.months,
+               start_date: Date.today - 2.years,
+               end_date: Date.today - 1.years,
                additional_notes: 'This course will not include X'
 
-Course.create! name: 'PSP 2017',
+Course.create! name: 'PSP 2021',
                description: 'Course to learn psp',
                start_date: Date.today - 1.year,
-               end_date: Date.today + 1.year + 6.months,
+               end_date: Date.today,
                additional_notes: ''
 
-Course.create! name: 'PSP 2016',
+Course.create! name: 'PSP 2022',
                description: 'Course to learn psp',
-               start_date: Date.today - 2.year,
-               end_date: Date.today + 2.year + 6.months,
+               start_date: Date.today,
+               end_date: Date.today + 1.year,
                additional_notes: ''
 
 # Creating phases
@@ -97,29 +96,29 @@ Project.create! name: 'Project 8', process: PspProcess.third,
 
 # Assign project to course
 Course.all.each do |course|
-  index = 0
   Project.all.each do |project|
-    index += 1
-    CourseProjectInstance.create! project:, course:,
-                                  start_date: Date.today + index.weeks, end_date: Date.today + (index + 1).weeks
+    CourseProjectInstance.create(project:, course:,
+                                  start_date: course.start_date + 2.weeks, end_date: course.end_date - 2.weeks)
   end
 end
 
 # Creating professors
 Professor.create! first_name: 'Silvana',
                   last_name: 'Moreno',
-                  email: 'silvana@fing.edu.uy',
-                  password: :password
+                  email: 'silvana@mail.com',
+                  password: 'admin'
 
 Professor.create! first_name: 'Leticia',
                   last_name: 'Perez',
-                  email: 'leticia@fing.edu.uy',
-                  password: :password
+                  email: 'leticia@mail.com',
+                  password: 'admin'
 
-Professor.create! first_name: 'Test',
-                  last_name: 'Test',
-                  email: 'test@fing.edu.uy',
-                  password: 'test12345'
+Professor.create! first_name: 'professor',
+                  last_name: 'lastname',
+                  email: 'admin@mail.com',
+                  password: 'admin'
+
+p "Se cargaron #{Professor.count} profesores"
 
 # Assign Professor to course
 Course.all.each do |course|
@@ -129,9 +128,16 @@ Course.all.each do |course|
 end
 
 # Creating users
-User.create! first_name: 'test2', last_name: 'test2', password: 'test12345',
-             email: 'test2@fing.edu.uy', approved_subjects: ['Calc 2'], programming_language: 'React', have_a_job: true, job_role: 'CTO Infocasas', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.third
+User.create! first_name: 'gustavo', last_name: 'audi', password: '12345678',
+             email: 'gusta97-2009@hotmail.com', approved_subjects: ['Calc 2'], programming_language: 'Java', have_a_job: true, job_role: 'Software Engineer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.third
+User.create! first_name: 'student2', last_name: 'lastname', password: '12345678',
+             email: 'student2@mail.com', approved_subjects: ['Calc 2'], programming_language: 'C++', have_a_job: true, job_role: 'Manager', academic_experience: 'Engineer', programming_experience: 'senior', course: Course.first, professor: Professor.third
+User.create! first_name: 'student3', last_name: 'lastname', password: '12345678',
+             email: 'student3@mail.com', approved_subjects: ['Calc 2'], programming_language: 'Java', have_a_job: true, job_role: 'Software Engineer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.third, professor: Professor.second
+User.create! first_name: 'student4', last_name: 'lastname', password: '12345678',
+             email: 'student4@mail.com', approved_subjects: ['Calc 2'], programming_language: 'C++', have_a_job: true, job_role: 'Manager', academic_experience: 'Engineer', programming_experience: 'senior', course: Course.second, professor: Professor.first
 
+p "Se cargaron #{User.count} usuarios"
 
 # Assign projects to students
 Course.first.students.each do |student|
@@ -140,25 +146,40 @@ Course.first.students.each do |student|
   end
 end
 
+p "Se cargaron #{AssignedProject.count} proyectos asignados"
+
+User.all.each do |user|
+  user.assigned_projects.each do |assigned_project|
+    assigned_project.project_deliveries.each do |project_delivery|
+      Status.create! user:, assigned_project:, project_delivery:, value: 'assigned'
+    end
+  end
+end
+
 # Create sample phases to first two students
 User.first(2).each do |user|
   project_delivery = user.assigned_projects.first.project_deliveries.first
-  PhaseInstance.create! start_time: Time.now, end_time: Time.now + 5.minutes, phase: Phase.first,
-                        project_delivery: project_delivery, plan_time: 8, plan_loc: 100
+  p project_delivery
+  PhaseInstance.create(start_time: Time.now, end_time: Time.now + 5.minutes, phase: Phase.first,
+                        project_delivery: project_delivery, plan_time: 8, plan_loc: 100)
 
-  PhaseInstance.create! start_time: Time.now + 10.minutes, end_time: Time.now + 20.minutes,
-                        phase: Phase.second, project_delivery: project_delivery, comments: 'Nice Phase'
+  PhaseInstance.create(start_time: Time.now + 10.minutes, end_time: Time.now + 20.minutes,
+                        phase: Phase.second, project_delivery: project_delivery, comments: 'Nice Phase')
 
-  last_phase = PhaseInstance.create! start_time: Time.now + 20.minutes,
-                                     end_time: Time.now + 55.minutes, interruption_time: 2, phase: Phase.third, project_delivery: project_delivery, comments: 'Incredible Phase'
+  last_phase = PhaseInstance.create(start_time: Time.now + 20.minutes,
+                                     end_time: Time.now + 55.minutes, interruption_time: 2, phase: Phase.third, project_delivery: project_delivery, comments: 'Incredible Phase')
 
   # Create defects associated to phase instances
-  Defect.create! discovered_time: Time.now + 23.minutes, phase_injected: Phase.second,
-                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 25.minutes, description: 'Forgot ;'
+  Defect.create(discovered_time: Time.now + 23.minutes, phase_injected: Phase.second,
+                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 25.minutes, description: 'Forgot ;')
 
-  Defect.create! discovered_time: Time.now + 26.minutes, phase_injected: Phase.second,
-                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 27.minutes, description: 'Forgot ;'
+  Defect.create(discovered_time: Time.now + 26.minutes, phase_injected: Phase.second,
+                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 27.minutes, description: 'Forgot ;')
 
-  Defect.create! discovered_time: Time.now + 28.minutes, phase_injected: Phase.second,
-                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 31.minutes, description: 'Forgot ;'
+  Defect.create(discovered_time: Time.now + 28.minutes, phase_injected: Phase.second,
+                 phase_instance: last_phase, defect_type: 'Syntax', fix_defect: 0, fixed_time: Time.now + 31.minutes, description: 'Forgot ;')
 end
+
+p "Se cargaron #{PhaseInstance.count} fases instancia"
+
+

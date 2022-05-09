@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddDeviseTokenAuthFieldsProfessors < ActiveRecord::Migration[5.0]
   def change
     add_column :professors, :provider, :string, null: false, default: 'email'

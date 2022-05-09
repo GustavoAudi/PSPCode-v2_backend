@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     class MessageNotificationsController < Api::V1::ApiController
@@ -12,6 +10,10 @@ module Api
                                                       .order(id: :desc)
                                                       .page(params[:page])
                                                       .per(params[:limit])
+      end
+
+      def edit
+        @route = Route.find(params[:id])
       end
     end
   end

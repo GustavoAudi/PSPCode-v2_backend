@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -74,9 +72,13 @@ class User < ApplicationRecord
 
   before_validation :init_uid
   before_create :set_password
-  after_create :send_welcome_email
+  after_create :send_welcome_email, unless: :is_not_development_scope
 
   attr_accessor :generated_password
+
+  def is_not_development_scope
+    ENV['RAILS_ENV'] != 'development'
+  end
 
   def self.from_social_provider(provider, user_params)
     where(provider:, uid: user_params['id']).first_or_create do |user|

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: assigned_projects
@@ -21,9 +19,9 @@
 
 class AssignedProject < ApplicationRecord
   enum status: %i[assigned working being_corrected approved need_correction]
-  has_many :project_deliveries, dependent: :destroy
+  has_many :project_deliveries, dependent: :destroy, class_name: 'ProjectDelivery'
   has_many :past_statuses, class_name: 'Status'
-  has_many :messages, dependent: :destroy
+  has_many :messages, dependent: :destroy, class_name: 'Message'
 
   belongs_to :user
   belongs_to :course_project_instance, counter_cache: true

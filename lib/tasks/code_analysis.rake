@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 task :code_analysis do
   sh 'bundle exec brakeman . -z -q'
   sh 'bundle exec rubocop app config lib spec'

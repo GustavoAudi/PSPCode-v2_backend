@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.id message.id
 json.person do
   if message.sender.is_a? User

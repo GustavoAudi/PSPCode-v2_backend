@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddPhaseInstanceTable < ActiveRecord::Migration[5.1]
   def change
     create_table :phase_instances do |t|

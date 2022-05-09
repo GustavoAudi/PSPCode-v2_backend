@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AssignedProjectDecorator < Draper::Decorator
   delegate_all
 

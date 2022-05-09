@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddHasPlanHasPipHasLocToProcess < ActiveRecord::Migration[5.1]
   def change
     add_column :psp_processes, :has_plan_time, :boolean, default: false

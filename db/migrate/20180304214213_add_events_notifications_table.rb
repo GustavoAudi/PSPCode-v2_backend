@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddEventsNotificationsTable < ActiveRecord::Migration[5.1]
   def change
     create_table :event_notifications do |t|

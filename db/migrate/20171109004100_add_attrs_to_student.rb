@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddAttrsToStudent < ActiveRecord::Migration[5.1]
   def change
     add_column :users, :approved_subjects, :text, array: true, default: []

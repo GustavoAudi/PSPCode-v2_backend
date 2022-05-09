@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     module Users
@@ -43,6 +41,10 @@ module Api
                                .order(:id)
                                .page params[:page]
           render 'api/v1/assigned_projects/index'
+        end
+
+        def edit
+          @route = Route.find(params[:id])
         end
 
         private

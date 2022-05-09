@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 CarrierWave.configure do |config|
   if Rails.env.test? || Rails.env.cucumber?
     config.storage = :file

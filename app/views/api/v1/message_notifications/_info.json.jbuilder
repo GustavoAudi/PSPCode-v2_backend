@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.id message_notification.id
 json.created_at message_notification.created_at
 json.assigned_project do

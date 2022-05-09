@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.id process.id
 json.name process.name
 json.has_plan_time process.has_plan_time

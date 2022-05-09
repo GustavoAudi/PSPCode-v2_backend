@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 json.id phase_instance.id
 json.psp_phase do
   json.partial! 'api/v1/phases/info', phase: phase_instance.phase if phase_instance.phase.present?

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddMessageNotificationsTable < ActiveRecord::Migration[5.1]
   def change
     create_table :message_notifications do |t|

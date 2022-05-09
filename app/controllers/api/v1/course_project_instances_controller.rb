@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Api
   module V1
     class CourseProjectInstancesController < Api::V1::ApiController
@@ -9,6 +7,10 @@ module Api
 
       def show
         'api/v1/course_project_instances/show'
+      end
+
+      def edit
+        @route = Route.find(params[:id])
       end
 
       private

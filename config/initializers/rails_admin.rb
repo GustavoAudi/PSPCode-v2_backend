@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ExportCourseData)
 
 RailsAdmin.config do |config|
