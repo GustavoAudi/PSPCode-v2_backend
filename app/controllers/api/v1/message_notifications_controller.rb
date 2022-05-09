@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Api
   module V1
     class MessageNotificationsController < Api::V1::ApiController
