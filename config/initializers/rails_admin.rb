@@ -1,6 +1,7 @@
 RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ExportCourseData)
 
 RailsAdmin.config do |config|
+  config.asset_source = :sprockets
   ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :professor

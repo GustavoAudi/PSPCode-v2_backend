@@ -9,14 +9,14 @@ gem 'carrierwave-base64', '~> 2.10.0'
 gem 'delayed_job_active_record', '~> 4.1.7'
 
 gem 'counter_culture', '~> 3.2.1'
-gem 'devise'
+gem 'devise', '~> 4.8.1'
 gem 'devise_token_auth', '~> 1.2.0'
 gem 'draper', '~> 4.0.2'
 gem 'fog-aws', '~> 3.13.0'
 gem 'font-awesome-rails'
 gem 'haml-rails', '~> 2.0.1'
 gem 'jbuilder', '~> 2.11.5'
-gem 'kaminari'
+gem 'kaminari', '~> 1.2.2'
 gem 'koala', '~> 3.1.0'
 gem 'net-smtp', require: false
 gem 'oj', '~> 3.13.11'
@@ -28,7 +28,7 @@ gem 'rails_admin', '~> 3.0.0'
 gem 'rollbar', '~> 3.3.0'
 gem 'sendgrid', '~> 1.2.4'
 gem 'tilt', '~> 2.0.10'
-gem 'wdm', '~> 0.1.1'
+gem 'wdm', '~> 0.1.1' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -59,7 +59,7 @@ group :development do
   gem 'rails_best_practices', '~> 1.23.1'
   gem 'reek', '~> 6.1.0'
   gem 'rubocop', '~> 1.26.1'
-  gem 'spring'
+  gem 'spring', '~> 2.1.1'
   gem 'spring-watcher-listen', '~> 2.0.1'
 end
 
@@ -71,11 +71,11 @@ group :test do
 end
 
 group :assets do
-  gem 'jquery-rails'
+  gem 'jquery-rails', '~> 4.4.0'
   gem 'sass-rails', '~> 6.0.0'
   gem 'uglifier', '~> 4.2.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'sassc-rails'
-gem 'tzinfo-data'
+gem 'sassc-rails', '~> 2.1.2'
+gem 'tzinfo-data', '~> 1.2022.1'
