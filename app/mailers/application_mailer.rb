@@ -48,9 +48,18 @@ class ApplicationMailer < ActionMailer::Base
     mail(to: receiver.email, subject: "PSP: Project rejected")
   end
 
+  def use_sendgrid_service?
+    ActiveModel::Type::Boolean.new.cast(ENV['USE_SENDGRID_SERVICE'])
+  end
+
   def welcome_email(user, generated_password)
-    @user = user.decorate
-    @generated_password = generated_password
-    mail(to: user.email, subject: "Welcome #{@user.full_name} to PSP course.")
+    if Rails.env.development?
+      p "User: " + user.decorate.full_name + " | Password: " + generated_password.to_s # Print local password
+    end
+    if use_sendgrid_service?
+      @user = user.decorate
+      @generated_password = generated_password
+      mail(to: user.email, subject: "Welcome #{@user.full_name} to PSP course.")
+    end
   end
 end
