@@ -182,7 +182,6 @@ ActiveRecord::Schema.define(version: 2018_03_25_184856) do
   create_table "professors", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.boolean "allow_password_change", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

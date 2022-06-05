@@ -48,10 +48,10 @@ class AssignedProject < ApplicationRecord
   # is updated (deletion can be manage with soft deletions).
   # Added to avoid multiple joins when rendering project list for a student
   before_save :assign_process
-  after_save :create_status_record, if: :status_changed?
-  after_save :create_notification, if: :status_changed?
-  after_save :delete_locs_first_project, if: :status_changed?
-  after_save :update_user_current_assigned_project, if: :status_changed?
+  after_save :create_status_record, if: :saved_change_to_status?
+  after_save :create_notification, if: :saved_change_to_status?
+  after_save :delete_locs_first_project, if: :saved_change_to_status?
+  after_save :update_user_current_assigned_project, if: :saved_change_to_status?
   after_create :create_project_delivery
 
   def assigned_datetime
