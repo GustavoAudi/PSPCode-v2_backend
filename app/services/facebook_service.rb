@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FacebookService
   def initialize(access_token)
     @access_token = access_token

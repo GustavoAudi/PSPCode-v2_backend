@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: statuses
@@ -31,6 +33,7 @@ class Status < ApplicationRecord
   def assign_project_delivery
     project_delivery = assigned_project.project_deliveries.last
     return unless project_delivery.present?
+
     self.project_delivery_id = project_delivery.id
   end
 end

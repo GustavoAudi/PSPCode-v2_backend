@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 # This tests will be skipped while the following issue is being attended
 # https://github.com/toptier/rails5_api_base/issues/30

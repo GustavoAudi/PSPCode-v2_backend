@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -25,7 +27,6 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
 
   config.active_job.queue_adapter = :delayed_job
 
@@ -58,5 +59,5 @@ Rails.application.configure do
     Bullet.add_footer = true
   end
 
-  config.assets.precompile += %w(devise/sessions.scss common.css.scss)
+  config.assets.precompile += %w[devise/sessions.scss common.css.scss]
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: psp_process_phases
@@ -26,11 +28,13 @@ class PspProcessPhase < ApplicationRecord
 
   def first_phase_uniqueness
     return unless phase.first && psp_process.phases.exists?(first: true)
+
     errors.add(:psp_process, 'There\'s a first phase already added for this process')
   end
 
   def last_phase_uniqueness
     return unless phase.last && psp_process.phases.exists?(last: true)
+
     errors.add(:psp_process, 'There\'s a last phase already added for this process')
   end
 end

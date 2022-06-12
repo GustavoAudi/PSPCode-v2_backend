@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'GET api/v1/users/:user_id/assigned_projects/:id',
          type: :request do
-
   let(:user) { create(:user) }
   let(:project) { create_list :project }
-  let(:course)   { create :course }
+  let(:course) { create :course }
   let(:course_project_instance) do
-
   end
 
   # it 'returns success' do

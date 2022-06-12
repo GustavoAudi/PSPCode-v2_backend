@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: defects
@@ -32,7 +34,7 @@ class Defect < ApplicationRecord
             :fixed_time,
             :description, presence: true
 
-  scope :with_fix_defect,  -> { where 'fix_defect is not NULL' }
+  scope :with_fix_defect, -> { where 'fix_defect is not NULL' }
 
   def phase_detected
     phase_instance.phase

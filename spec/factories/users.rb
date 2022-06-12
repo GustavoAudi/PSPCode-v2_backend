@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -56,9 +58,7 @@ FactoryGirl.define do
     course
 
     after(:build) do |user|
-      if user.course.present? && user.professor.present?
-        user.course.professors << user.professor
-      end
+      user.course.professors << user.professor if user.course.present? && user.professor.present?
       user.send(:set_last_seen_values)
     end
   end

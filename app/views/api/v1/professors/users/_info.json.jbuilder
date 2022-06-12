@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id                   user.id
 json.first_name           user.first_name
 json.last_name            user.last_name
@@ -12,7 +14,7 @@ end
 
 json.project do
   # TODO, Fix performance
-  if assigned_project = user.assigned_projects.find_by(course_project_instance: course_project_instance)
+  if (assigned_project = user.assigned_projects.find_by(course_project_instance: course_project_instance))
     json.status assigned_project.status
   else
     json.status 'not_assigned'
