@@ -1,4 +1,6 @@
-RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ExportCourseData)
+require 'rails_admin/config/actions/export_course_data'
+
+RailsAdmin::Config::Actions.register(:export_course_data, 'RailsAdmin::Config::Actions::ExportCourseData')
 
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
