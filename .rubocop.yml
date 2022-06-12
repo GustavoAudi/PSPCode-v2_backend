@@ -1,7 +1,7 @@
 Documentation:
   Enabled: false
 AllCops:
-  Excludes:
+  Exclude:
    - config/initializers/rails_admin_pg_arrays.rb
 Metrics/AbcSize:
   # The ABC size is a calculated magnitude, so this number can be an Integer or
@@ -23,7 +23,7 @@ Metrics/ModuleLength:
 Metrics/CyclomaticComplexity:
   Max: 6
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 100
   # To make it possible to copy or click on URIs in the code, we allow lines
   # containing a URI to be longer than Max.
@@ -43,6 +43,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 12
 
-SingleSpaceBeforeFirstArg:
+Layout/SpaceBeforeFirstArg:
  Exclude:
    - app/views/api/**/**/*
