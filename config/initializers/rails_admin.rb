@@ -5,6 +5,9 @@ require 'rails_admin/config/actions/export_course_data'
 RailsAdmin::Config::Actions.register(:export_course_data, 'RailsAdmin::Config::Actions::ExportCourseData')
 
 RailsAdmin.config do |config|
+  # Provide application name
+  config.main_app_name = ["PSP admin", ""]
+
   config.asset_source = :sprockets
   ## == Devise ==
   config.authenticate_with do
