@@ -237,4 +237,42 @@ RailsAdmin.config do |config|
       field :last
     end
   end
+
+  config.model Course do
+    list do
+      field :name
+      field :start_date
+      field :end_date
+      field :created_at
+    end
+
+    show do
+      field :name
+      field :description
+      field :start_date
+      field :end_date
+      field :professors
+      field :projects
+      field :additional_notes
+      field :created_at
+    end
+
+    edit do
+      field :name
+      field :start_date
+      field :end_date
+      field :description, :text do
+        html_attributes do
+          { rows: 6, cols: 50 }
+        end
+      end
+      field :additional_notes, :text do
+        html_attributes do
+          { rows: 6, cols: 50 }
+        end
+      end
+      field :professors
+      field :course_projects
+    end
+  end
 end
