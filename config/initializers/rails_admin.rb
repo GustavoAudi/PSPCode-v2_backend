@@ -6,7 +6,7 @@ RailsAdmin::Config::Actions.register(:export_course_data, 'RailsAdmin::Config::A
 
 RailsAdmin.config do |config|
   # Provide application name
-  config.main_app_name = ["PSP admin", ""]
+  config.main_app_name = ['PSP admin', '']
 
   config.asset_source = :sprockets
   ## == Devise ==
