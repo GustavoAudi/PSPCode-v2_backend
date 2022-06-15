@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'PUT api/v1/user/', type: :request do
@@ -5,7 +7,7 @@ describe 'PUT api/v1/user/', type: :request do
   let(:api_v1_user_path) { '/api/v1/user' }
 
   context 'with valid params' do
-    let(:params) {  { user: { first_name: 'new_name' } } }
+    let(:params) { { user: { first_name: 'new_name' } } }
 
     it 'returns success' do
       put api_v1_user_path, params: params, headers: auth_headers, as: :json

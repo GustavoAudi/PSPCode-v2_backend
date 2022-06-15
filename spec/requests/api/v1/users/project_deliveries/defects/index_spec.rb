@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe '/api/v1/users/:user_id/assigned_projects/:assigned_project_id/project_deliveries/:project_delivery_id/defects', type: :request do
-  let!(:professor)     { create :professor }
+  let!(:professor) { create :professor }
   let!(:user)     { create :user, professor: professor }
   let!(:course)   { create :course }
   let!(:project)  { create :project }
@@ -29,13 +31,12 @@ describe '/api/v1/users/:user_id/assigned_projects/:assigned_project_id/project_
     @defects4 = create_list :defect, 2,  phase_instance: @phase_instance4
   end
 
-
   it 'returns success' do
     get api_v1_user_assigned_project_project_delivery_defects_path(user_id: user.id,
                                                                    assigned_project_id: @assigned_project.id,
                                                                    project_delivery_id: @project_delivery.id,
                                                                    phase_id: phase2.id),
-      headers: auth_headers, as: :json
+        headers: auth_headers, as: :json
     expect(response).to have_http_status(:success)
   end
 
@@ -44,8 +45,8 @@ describe '/api/v1/users/:user_id/assigned_projects/:assigned_project_id/project_
                                                                    assigned_project_id: @assigned_project.id,
                                                                    project_delivery_id: @project_delivery.id,
                                                                    phase_id: phase2.id),
-      headers: auth_headers, as: :json
-    result_ids = JSON.parse(response.body).map{ |elem| elem['id'] }
+        headers: auth_headers, as: :json
+    result_ids = JSON.parse(response.body).map { |elem| elem['id'] }
     expect(result_ids).to include(*@defects2.map(&:id))
     expect(result_ids).to include(*@defects3.map(&:id))
   end
@@ -55,8 +56,8 @@ describe '/api/v1/users/:user_id/assigned_projects/:assigned_project_id/project_
                                                                    assigned_project_id: @assigned_project.id,
                                                                    project_delivery_id: @project_delivery.id,
                                                                    phase_id: phase2.id),
-      headers: auth_headers, as: :json
-    result_ids = JSON.parse(response.body).map{ |elem| elem['id'] }
+        headers: auth_headers, as: :json
+    result_ids = JSON.parse(response.body).map { |elem| elem['id'] }
     expect(result_ids).not_to include(*@defects4.map(&:id))
     expect(result_ids).not_to include(*@defects1.map(&:id))
   end

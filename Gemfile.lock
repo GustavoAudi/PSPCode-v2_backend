@@ -445,6 +445,9 @@ GEM
     turbo-rails (1.0.1)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
+    turbolinks (5.2.1)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.1)
@@ -489,7 +492,7 @@ DEPENDENCIES
   guard-ctags-bundler
   haml-rails (~> 2.0.1)
   jbuilder (~> 2.11.5)
-  jquery-rails (~> 4.4.0)
+  jquery-rails
   kaminari (~> 1.2.2)
   koala (~> 3.1.0)
   letter_opener (~> 1.8.1)
@@ -518,6 +521,7 @@ DEPENDENCIES
   spring (~> 2.1.1)
   spring-watcher-listen (~> 2.0.1)
   tilt (~> 2.0.10)
+  turbolinks
   tzinfo-data (~> 1.2022.1)
   uglifier (~> 4.2.0)
   wdm (~> 0.1.1)

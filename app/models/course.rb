@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses
@@ -41,7 +43,10 @@ class Course < ApplicationRecord
 
   def valid_course_period
     return unless start_date.present? && end_date.present?
+
+    return unless start_date >= end_date
+
     errors.add(:wrong_valid_period,
-               'start_date should precede end_date') if (start_date >= end_date)
+               'start_date should precede end_date')
   end
 end

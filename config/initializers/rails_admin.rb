@@ -1,6 +1,13 @@
-RailsAdmin::Config::Actions.register(RailsAdmin::Config::Actions::ExportCourseData)
+# frozen_string_literal: true
+
+require 'rails_admin/config/actions/export_course_data'
+
+RailsAdmin::Config::Actions.register(:export_course_data, 'RailsAdmin::Config::Actions::ExportCourseData')
 
 RailsAdmin.config do |config|
+  # Provide application name
+  config.main_app_name = ['PSP admin', '']
+
   config.asset_source = :sprockets
   ## == Devise ==
   config.authenticate_with do
@@ -8,7 +15,7 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_professor)
 
-  config.included_models = %w(ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance)
+  config.included_models = %w[ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance]
 
   ## == Needed to reload in dev ENV ==
   config.parent_controller = ApplicationController.to_s

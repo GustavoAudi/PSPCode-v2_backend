@@ -1,48 +1,42 @@
 Documentation:
   Enabled: false
-AllCops:
-  Excludes:
-   - config/initializers/rails_admin_pg_arrays.rb
-Metrics/AbcSize:
-  # The ABC size is a calculated magnitude, so this number can be an Integer or
-  # a Float.
-  Max: 15
 
+AllCops:
+  Exclude:
+    - config/initializers/rails_admin_pg_arrays.rb
+    - db/**/*
+
+Metrics/AbcSize:
+  Enabled: false
 Metrics/BlockNesting:
   Max: 4
-
 Metrics/ClassLength:
   CountComments: false  # count full line comments?
   Max: 200
-
 Metrics/ModuleLength:
   CountComments: false  # count full line comments?
   Max: 200
-
-# Avoid complex methods.
 Metrics/CyclomaticComplexity:
-  Max: 6
-
-Metrics/LineLength:
-  Max: 100
-  # To make it possible to copy or click on URIs in the code, we allow lines
-  # containing a URI to be longer than Max.
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
-
+  Max: 15
 Metrics/MethodLength:
   CountComments: false  # count full line comments?
-  Max: 24
-
+  Max: 35
 Metrics/ParameterLists:
   Max: 5
   CountKeywordArgs: true
-
 Metrics/PerceivedComplexity:
   Max: 12
+Metrics/BlockLength:
+  Enabled: false
 
-SingleSpaceBeforeFirstArg:
- Exclude:
-   - app/views/api/**/**/*
+Layout/LineLength:
+  Enabled: false
+Layout/SpaceBeforeFirstArg:
+  Exclude:
+    - app/views/api/**/**/*
+
+
+Style/HashSyntax:
+  Enabled: false
+Style/ExpandPathArguments:
+  Enabled: false

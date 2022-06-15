@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id defect.id
 json.phase_injected do
   json.id defect.phase_injected_id

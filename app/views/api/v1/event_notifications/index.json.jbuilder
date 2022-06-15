@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.event_notifications do
   json.array! @event_notifications do |event_notification|
     json.partial! 'api/v1/event_notifications/info', event_notification: event_notification

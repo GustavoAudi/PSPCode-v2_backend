@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: course_project_instances
@@ -38,14 +40,18 @@ class CourseProjectInstance < ApplicationRecord
 
   def valid_project_period_within_course
     return if course.blank? || course.contains_time_period?(start_date, end_date)
+
     errors.add(:invalid_time_period,
                'project dates should be contained within the course dates')
   end
 
   def valid_project_period
     return unless start_date.present? && end_date.present?
+
+    return unless start_date >= end_date
+
     errors.add(:invalid_time_period,
-               'start_date should precede end_date') if (start_date >= end_date)
+               'start_date should precede end_date')
   end
 
   def students_working

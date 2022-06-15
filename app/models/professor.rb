@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: professors
@@ -58,20 +60,20 @@ class Professor < ApplicationRecord
     assigned_project.update!(status: :approved)
     message = assigned_project.messages.create! message_params.merge!(message_type: :approved)
     MailerApprovedNotificationJob.perform_now('approved',
-                                                assigned_project.user,
-                                                self,
-                                                assigned_project,
-                                                message)
+                                              assigned_project.user,
+                                              self,
+                                              assigned_project,
+                                              message)
   end
 
   def reject_project(assigned_project, message_params)
     assigned_project.update!(status: :need_correction)
     message = assigned_project.messages.create! message_params.merge!(message_type: :rejected)
     MailerRejectedNotificationJob.perform_now('need_correction',
-                                                assigned_project.user,
-                                                self,
-                                                assigned_project,
-                                                message)
+                                              assigned_project.user,
+                                              self,
+                                              assigned_project,
+                                              message)
   end
 
   private

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MailerRejectedNotificationJob < ApplicationJob
   queue_as :default
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if @resource.is_a? User
   json.partial! 'api/v1/users/info', user: @resource
 else

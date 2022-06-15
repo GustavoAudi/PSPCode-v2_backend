@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id assigned_project.id
 json.psp_project do
   json.partial! 'api/v1/course_project_instances/summary_info',
@@ -21,4 +23,3 @@ json.course_project_instance do
   json.start_date       assigned_project.course_project_instance.start_date
   json.deadline         assigned_project.course_project_instance.end_date
 end
-

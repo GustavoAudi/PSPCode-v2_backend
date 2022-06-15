@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: phases
@@ -27,13 +29,15 @@ class Phase < ApplicationRecord
 
   def order_inclusion
     phase_count = Phase.count + 1
-    return if order.blank? || order > 0 && order <= phase_count
+    return if order.blank? || order.positive? && order <= phase_count
+
     errors.add(:order, "should be included within 1 and #{phase_count}")
-    errors.add(:order, "should not be repeated with other phases")
+    errors.add(:order, 'should not be repeated with other phases')
   end
 
   def be_first_and_last_phase
     return unless first && last
+
     errors.add(:phase, 'can\'t be first and last phase at the same time')
   end
 end

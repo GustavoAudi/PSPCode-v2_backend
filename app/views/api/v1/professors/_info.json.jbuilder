@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id           professor.id
 json.first_name   professor.first_name
 json.last_name    professor.last_name
