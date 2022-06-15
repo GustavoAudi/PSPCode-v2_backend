@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -6,8 +6,7 @@ module Api
       include Concerns::UserOrProfessorAuth
       helper_method :user
 
-      def show
-      end
+      def show; end
 
       def profile
         render :show
@@ -21,7 +20,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:first_name, :last_name, :email, :programming_language, :last_seen_event_notification, :last_seen_message_notification, :password, :have_a_job, :job_role, :academic_experience, :programming_experience, :collegue_career_progress, :approved_subjects )
+        params.require(:user).permit(:first_name, :last_name, :email, :programming_language, :last_seen_event_notification, :last_seen_message_notification, :password, :have_a_job, :job_role, :academic_experience, :programming_experience, :collegue_career_progress, :approved_subjects)
       end
 
       def user

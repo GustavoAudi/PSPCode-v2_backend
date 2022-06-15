@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id phase.id
 json.name phase.name
 json.order phase.order

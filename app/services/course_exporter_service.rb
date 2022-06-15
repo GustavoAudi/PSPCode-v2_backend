@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CourseExporterService
   attr_reader :record
 
@@ -36,12 +38,11 @@ class CourseExporterService
   end
 
   def student_project_phase_row(student, project_delivery, phase)
-    [ student.id,
-      project_delivery.assigned_project.course_project_instance.name,
-      phase.name,
-      project_delivery.phase_instances.where(phase: phase).sum(:elapsed_time),
-      Defect.joins(:phase_instance)
-      .where(phase_instances: { project_delivery_id: project_delivery.id, phase_id: phase.id }).count
-    ]
+    [student.id,
+     project_delivery.assigned_project.course_project_instance.name,
+     phase.name,
+     project_delivery.phase_instances.where(phase: phase).sum(:elapsed_time),
+     Defect.joins(:phase_instance)
+           .where(phase_instances: { project_delivery_id: project_delivery.id, phase_id: phase.id }).count]
   end
 end

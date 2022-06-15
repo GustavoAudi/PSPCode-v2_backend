@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.key project.id
 json.name project.course_project_instance.name
 json.assigned project.created_at

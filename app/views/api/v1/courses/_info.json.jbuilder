@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id               course.id
 json.name             course.name
 json.start_date       course.start_date

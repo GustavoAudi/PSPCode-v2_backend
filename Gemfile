@@ -1,32 +1,40 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.2'
+gem 'rails', '~> 6.1.5'
 
-gem 'carrierwave', '~> 0.11.2'
-gem 'carrierwave-base64', '~> 2.3.4'
-gem 'delayed_job_active_record', '~> 4.1.2'
+gem 'carrierwave', '~> 2.2.2'
+gem 'carrierwave-base64', '~> 2.10.0'
+gem 'delayed_job_active_record', '~> 4.1.7'
 
-gem 'devise', '~> 4.3.0'
-gem 'devise_token_auth', '~> 0.1.42'
-gem 'draper', '~> 3.0.0'
-gem 'fog-aws', '~> 0.12.0'
-gem 'jbuilder', '~> 2.7.0'
-gem 'haml-rails', '~> 1.0.0'
-gem 'oj', '~> 2.17.5'
-gem 'koala', '~> 1.10.1'
-gem 'pg', '~> 0.18.2'
-gem 'pry-rails', '~> 0.3.4'
-gem 'puma', '~> 3.0'
-gem 'rack-cors', '~> 0.4.0'
+gem 'counter_culture', '~> 3.2.1'
+gem 'devise', '~> 4.8.1'
+gem 'devise_token_auth', '~> 1.2.0'
+gem 'draper', '~> 4.0.2'
+gem 'fog-aws', '~> 3.13.0'
+gem 'font-awesome-rails'
+gem 'haml-rails', '~> 2.0.1'
+gem 'jbuilder', '~> 2.11.5'
+gem 'jquery-rails'
+gem 'kaminari', '~> 1.2.2'
+gem 'koala', '~> 3.1.0'
+gem 'net-smtp', require: false
+gem 'oj', '~> 3.13.11'
+gem 'pg', '~> 1.3.5'
+gem 'pry-rails', '~> 0.3.9'
+gem 'puma', '~> 5.6.4'
+gem 'rack-cors', '~> 1.1.1'
+gem 'rails_admin', '~> 3.0.0'
+gem 'rollbar', '~> 3.3.0'
+gem 'sass-rails', '~> 6.0.0'
 gem 'sendgrid', '~> 1.2.4'
-gem 'tilt', '~> 2.0.7'
-gem "font-awesome-rails"
-gem "kaminari"
-gem 'rails_admin', '~> 1.2'
-gem 'counter_culture', '~> 1.8'
-gem 'rollbar', '~> 2.15.5'
+gem 'tilt', '~> 2.0.10'
+gem 'turbolinks'
+gem 'uglifier', '~> 4.2.0'
+gem 'wdm', '~> 0.1.1' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
@@ -37,42 +45,37 @@ gem 'rollbar', '~> 2.15.5'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  gem 'bullet', '~> 5.5.1'
-  gem 'factory_girl_rails', '~> 4.5.0'
-  gem 'faker', '~> 1.7.3'
-  gem 'pry-byebug', '~> 3.3.0', platform: :mri
-  gem 'rails-controller-testing', '~> 1.0.1'
-  gem 'rspec-rails', '~> 3.5.2'
-  gem 'rspec-core', '~> 3.5.2'
+  gem 'bullet', '~> 7.0.1'
+  gem 'factory_bot', '~> 6.2.1'
+  gem 'faker', '~> 2.20.0'
+  gem 'pry-byebug', '~> 3.9.0', platform: :mri
+  gem 'rails-controller-testing', '~> 1.0.5'
+  gem 'rspec-core', '~> 3.11.0'
+  gem 'rspec-rails', '~> 5.1.1'
 end
 
 group :development do
+  gem 'annotate', '~> 3.2.0'
+  gem 'better_errors', '~> 2.9.1'
+  gem 'binding_of_caller', '~> 1.0.0'
+  gem 'brakeman', '~> 5.2.1'
   gem 'guard-ctags-bundler'
-  gem 'annotate', '~> 2.6.5'
-  gem 'better_errors', '~> 2.1.1'
-  gem 'binding_of_caller', '~> 0.7.2'
-  gem 'brakeman', '~> 3.4.0'
-  gem 'letter_opener', '~> 1.4.1'
-  gem 'listen', '~> 3.0.5'
-  gem 'rails_best_practices', '~> 1.16.0'
-  gem 'reek', '~> 3.4.0'
-  gem 'rubocop', '~> 0.32.1'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'letter_opener', '~> 1.8.1'
+  gem 'listen', '~> 3.7.1'
+  gem 'rails_best_practices', '~> 1.23.1'
+  gem 'reek', '~> 6.1.0'
+  gem 'rubocop', '~> 1.26.1'
+  gem 'spring', '~> 2.1.1'
+  gem 'spring-watcher-listen', '~> 2.0.1'
 end
 
 group :test do
-  gem 'database_cleaner', '~> 1.4.1'
-  gem 'shoulda-matchers', '~> 3.1.1'
-  gem 'simplecov', '~> 0.13.0', require: false
-  gem 'webmock', '~> 2.3.2'
-end
-
-group :assets do
-  gem 'uglifier', '~> 2.7.2'
-  gem 'sass-rails', '~> 5.0'
-  gem 'jquery-rails'
+  gem 'database_cleaner', '~> 2.0.1'
+  gem 'shoulda-matchers', '~> 5.1.0'
+  gem 'simplecov', '~> 0.21.2', require: false
+  gem 'webmock', '~> 3.14.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'sassc-rails', '~> 2.1.2'
+gem 'tzinfo-data', '~> 1.2022.1'

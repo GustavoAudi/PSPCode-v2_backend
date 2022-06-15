@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -8,7 +8,7 @@ module Api
 
       def sign_up_params
         params.require(:user).permit(:email, :password, :password_confirmation,
-                                     :first_name, :last_name, :course_id)
+                                     :first_name, :last_name, :course_id, :professor_id)
       end
 
       def render_create_success

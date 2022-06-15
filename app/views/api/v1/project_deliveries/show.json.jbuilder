@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id project_delivery.id
 json.version project_delivery.version_number
 json.file project_delivery.file&.url

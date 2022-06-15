@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assigned_projects
@@ -18,7 +20,7 @@
 #
 
 class AssignedProject < ApplicationRecord
-  enum status: %i(assigned working being_corrected approved need_correction)
+  enum status: %i[assigned working being_corrected approved need_correction]
   has_many :project_deliveries, dependent: :destroy
   has_many :past_statuses, class_name: 'Status'
   has_many :messages, dependent: :destroy
@@ -28,11 +30,11 @@ class AssignedProject < ApplicationRecord
   counter_culture :course_project_instance,
                   column_name: proc { |model| "#{model.status}_count" },
                   column_names: {
-                    ["assigned_projects.status = ?", 0] => 'assigned_count',
-                    ["assigned_projects.status = ?", 1] => 'working_count',
-                    ["assigned_projects.status = ?", 2] => 'being_corrected_count',
-                    ["assigned_projects.status = ?", 3] => 'approved_count',
-                    ["assigned_projects.status = ?", 4] => 'assigned_count',
+                    ['assigned_projects.status = ?', 0] => 'assigned_count',
+                    ['assigned_projects.status = ?', 1] => 'working_count',
+                    ['assigned_projects.status = ?', 2] => 'being_corrected_count',
+                    ['assigned_projects.status = ?', 3] => 'approved_count',
+                    ['assigned_projects.status = ?', 4] => 'assigned_count'
                   }
 
   # Process that follows the assigned_project
@@ -48,10 +50,10 @@ class AssignedProject < ApplicationRecord
   # is updated (deletion can be manage with soft deletions).
   # Added to avoid multiple joins when rendering project list for a student
   before_save :assign_process
-  after_save :create_status_record, if: :status_changed?
-  after_save :create_notification, if: :status_changed?
-  after_save :delete_locs_first_project, if: :status_changed?
-  after_save :update_user_current_assigned_project, if: :status_changed?
+  after_save :create_status_record, if: :saved_change_to_status?
+  after_save :create_notification, if: :saved_change_to_status?
+  after_save :delete_locs_first_project, if: :saved_change_to_status?
+  after_save :update_user_current_assigned_project, if: :saved_change_to_status?
   after_create :create_project_delivery
 
   def assigned_datetime
@@ -83,10 +85,9 @@ class AssignedProject < ApplicationRecord
 
   def delete_locs_first_project
     return unless status == 'need_correction'
+
     assigned_projects = user.assigned_projects
-    if assigned_projects.where('id < ?', id).count == 1
-      assigned_projects.first&.current_project_delivery&.phase_instances&.last&.update!(new_reusable: 0, total: 0)
-    end
+    assigned_projects.first&.current_project_delivery&.phase_instances&.last&.update!(new_reusable: 0, total: 0) if assigned_projects.where('id < ?', id).count == 1
   end
 
   def generate_new_version
@@ -112,10 +113,11 @@ class AssignedProject < ApplicationRecord
   end
 
   def user_course_project_instance_consistency
-    if course_project_instance.present? && user.present?
-      return if course_project_instance.students.include? user
-      errors.add(:user, 'Must belong to the course')
-    end
+    return unless course_project_instance.present? && user.present?
+
+    return if course_project_instance.students.include? user
+
+    errors.add(:user, 'Must belong to the course')
   end
 
   def create_notification
@@ -153,10 +155,11 @@ class AssignedProject < ApplicationRecord
 
   def status_flow
     return unless status_changed?
+
     error_msg = 'unpermitted status flow'
     case status
     when 'assigned'
-      errors.add(:status, error_msg) unless status_was == nil
+      errors.add(:status, error_msg) unless status_was.nil?
     when 'working'
       errors.add(:status, error_msg) unless status_was == 'assigned' ||
                                             status_was == 'need_correction'
@@ -175,6 +178,7 @@ class AssignedProject < ApplicationRecord
   def assign_process
     project = course_project_instance.project
     return unless project.present? && project.process.present?
+
     self.process = project.process
   end
 

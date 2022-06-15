@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id status.id
 json.status status.value
 json.date status.created_at

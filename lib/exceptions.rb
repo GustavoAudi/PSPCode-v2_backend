@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Exceptions
   class BaseException < StandardError
     attr_reader :parameter

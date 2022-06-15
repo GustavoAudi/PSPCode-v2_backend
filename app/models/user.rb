@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -86,6 +88,7 @@ class User < ApplicationRecord
   def first_approved_assigned_project
     assigned_project = assigned_projects.first
     return unless assigned_project.approved?
+
     assigned_project
   end
 
@@ -106,6 +109,7 @@ class User < ApplicationRecord
 
   def professor_of_same_course
     return if professor.blank? || course.blank? || professor.courses.include?(course)
+
     errors.add(:professor, 'Must belong to the same course')
   end
 

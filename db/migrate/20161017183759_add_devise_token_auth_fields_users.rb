@@ -4,6 +4,6 @@ class AddDeviseTokenAuthFieldsUsers < ActiveRecord::Migration[5.0]
     add_column :users, :uid, :string, null: false, default: ''
     add_column :users, :tokens, :json
 
-    add_index :users, [:uid, :provider], unique: true
+    add_index :users, %i[uid provider], unique: true
   end
 end
