@@ -45,6 +45,7 @@ class PhaseInstance < ApplicationRecord
   validate :valid_time_range
 
   before_validation :update_elapsed_time
+  before_save :update_total_time_obs
   before_save :assign_first_and_last_attr, if: :phase_id_changed?
 
   # Delete all the defects that were injected in the same Phase p if this is the last
@@ -83,8 +84,19 @@ class PhaseInstance < ApplicationRecord
                         end
   end
 
+  def update_total_time_obs
+    return unless elapsed_time_changed?
+
+    if phase.present? && phase.name != 'CODE' && elapsed_time > 1439
+      self.total_time_obs = "The stage lasts more than 24 hours."
+    else
+      self.total_time_obs = nil;
+    end
+  end
+
   def assign_first_and_last_attr
     self.first = phase.first
     self.last = phase.last
   end
+
 end
