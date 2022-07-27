@@ -20,6 +20,8 @@ json.pip_problem phase_instance.pip_problem
 json.pip_proposal phase_instance.pip_proposal
 json.pip_notes phase_instance.pip_notes
 
-if @is_professor_authenticated && phase_instance.total_time_obs.present? ## Observations for professor
-  json.total_time_obs phase_instance.total_time_obs
+if @is_professor_authenticated ## Observations for professor
+  json.observations do
+    json.total_time phase_instance.total_time_obs if phase_instance.total_time_obs.present?
+  end
 end
