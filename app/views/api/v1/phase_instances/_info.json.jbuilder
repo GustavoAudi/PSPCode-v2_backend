@@ -22,6 +22,6 @@ json.pip_notes phase_instance.pip_notes
 
 if @is_professor_authenticated ## Observations for professor
   json.observations do
-    json.total_time phase_instance.total_time_obs if phase_instance.total_time_obs.present?
+    json.total_time phase_instance.get_total_time_obs
   end
 end

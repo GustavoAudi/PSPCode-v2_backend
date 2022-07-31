@@ -48,8 +48,7 @@ module Api
                                                  :pip_problem,
                                                  :pip_proposal,
                                                  :pip_notes,
-                                                 :comments,
-                                                 :total_time_obs)
+                                                 :comments)
         end
 
         def phase_instance

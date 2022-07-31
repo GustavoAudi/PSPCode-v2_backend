@@ -140,7 +140,6 @@ ActiveRecord::Schema.define(version: 2018_03_25_184856) do
     t.string "pip_proposal", default: ""
     t.string "pip_notes", default: ""
     t.string "comments"
-    t.string "total_time_obs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "elapsed_time", default: 0

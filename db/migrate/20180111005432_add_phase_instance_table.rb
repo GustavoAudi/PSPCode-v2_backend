@@ -18,7 +18,6 @@ class AddPhaseInstanceTable < ActiveRecord::Migration[5.1]
       t.integer :pip_proposal
       t.integer :pip_notes
       t.string :comments
-      t.string :total_time_obs
       t.timestamps
     end
   end
