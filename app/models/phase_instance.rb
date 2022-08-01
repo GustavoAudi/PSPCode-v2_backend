@@ -54,12 +54,21 @@ class PhaseInstance < ApplicationRecord
 
   public
 
+  # TODO, changes phase name
   def get_total_time_obs
-    if phase.present? && phase.name != 'CODE' && get_elapsed_time > 1439
-      "The stage lasts more than 24 hours."
-    else
-      nil
+    "The stage lasts more than 24 hours." if phase.present? && phase.name != 'CODE' && get_elapsed_time > 1439
+  end
+
+  # TODO, changes phase name
+  def get_defect_fix_times_obs
+    fixed_time_total = 0
+    if phase.present? && (phase.name == 'CODE' || phase.name == "UNIT TEST") && defects.present?
+      defects.each do |defect|
+        fixed_time_total += (defect.fixed_time.to_time.to_i - defect.discovered_time.to_time.to_i) / 60
+      end
     end
+
+    "Fix time is greater than total stage time." if fixed_time_total > get_elapsed_time
   end
 
   private
