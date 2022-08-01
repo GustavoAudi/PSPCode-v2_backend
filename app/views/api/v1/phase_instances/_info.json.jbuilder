@@ -22,7 +22,8 @@ json.pip_notes phase_instance.pip_notes
 
 if @is_professor_authenticated ## Observations for professor
   json.observations do
-    json.total_time phase_instance.get_total_time_obs
-    json.defect_fix_times phase_instance.get_defect_fix_times_obs
+    json.elapsed_time phase_instance.get_elapsed_time_obs
+    json.fix_time phase_instance.get_fix_time_obs
+    json.break_time phase_instance.get_break_time_obs
   end
 end

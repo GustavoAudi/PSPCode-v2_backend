@@ -54,22 +54,23 @@ class PhaseInstance < ApplicationRecord
 
   public
 
-  # TODO, changes phase name
-  def get_total_time_obs
-    "The stage lasts more than 24 hours." if phase.present? && phase.name != 'CODE' && get_elapsed_time > 1439
-  end
+  ONE_DAY = 1440
+  ## start observations for professor
 
   # TODO, changes phase name
-  def get_defect_fix_times_obs
-    fixed_time_total = 0
-    if phase.present? && (phase.name == 'CODE' || phase.name == "UNIT TEST") && defects.present?
-      defects.each do |defect|
-        fixed_time_total += (defect.fixed_time.to_time.to_i - defect.discovered_time.to_time.to_i) / 60
-      end
-    end
-
-    "Fix time is greater than total stage time." if fixed_time_total > get_elapsed_time
+  def get_elapsed_time_obs
+    "The stage lasts more than 24 hours." if phase.present? && phase.name != 'CODE' && get_total_without_break_time > ONE_DAY
   end
+
+  def get_fix_time_obs
+    "Fix time is greater than stage total time." if get_total_fix_time > get_total_without_break_time
+  end
+
+  def get_break_time_obs
+    "The interruption time shouldn’t be that long." if interruption_time > get_total_without_fix_time
+  end
+
+  ## end observations
 
   private
 
@@ -95,15 +96,43 @@ class PhaseInstance < ApplicationRecord
   def update_elapsed_time
     return unless end_time_changed? || start_time_changed? || interruption_time_changed?
 
-    self.elapsed_time = get_elapsed_time
+    self.elapsed_time = get_total_without_break_time
   end
 
-  def get_elapsed_time
+  def get_total_without_break_time
+    total_without_break_time = get_total_time - interruption_time
+    if total_without_break_time.negative?
+      0
+    else
+      total_without_break_time
+    end
+  end
+
+  def get_total_without_fix_time
+    total_without_fix_time = get_total_time - get_total_fix_time
+    if total_without_fix_time.negative?
+      0
+    else
+      total_without_fix_time
+    end
+  end
+
+  def get_total_time
     if start_time.present? && end_time.present?
-      ((end_time.to_i - start_time.to_i) / 60) - interruption_time.to_i
+      (end_time - start_time) / 60
     else
       0
     end
+  end
+
+  def get_total_fix_time
+    total_fix_time = 0
+    if defects.present?
+      defects.each do |defect|
+        total_fix_time += (defect.fixed_time - defect.discovered_time) / 60
+      end
+    end
+    total_fix_time
   end
 
   def assign_first_and_last_attr
