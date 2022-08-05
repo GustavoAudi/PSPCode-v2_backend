@@ -25,5 +25,8 @@ if @is_professor_authenticated ## Observations for professor
     json.elapsed_time phase_instance.get_elapsed_time_obs
     json.fix_time phase_instance.get_fix_time_obs
     json.break_time phase_instance.get_break_time_obs
+    json.plan_time phase_instance.get_plan_time_obs
+    json.empty_loc phase_instance.get_empty_loc_obs
+    json.empty_total phase_instance.get_empty_total_obs
   end
 end

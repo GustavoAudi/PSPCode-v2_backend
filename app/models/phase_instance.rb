@@ -54,8 +54,8 @@ class PhaseInstance < ApplicationRecord
 
   public
 
-  ONE_DAY = 1440
   ## start observations for professor
+  ONE_DAY = 1440
 
   # TODO, changes phase name
   def get_elapsed_time_obs
@@ -68,6 +68,21 @@ class PhaseInstance < ApplicationRecord
 
   def get_break_time_obs
     "The interruption time shouldn’t be that long." if interruption_time > get_total_without_fix_time
+  end
+
+  # TODO, changes phase name
+  def get_plan_time_obs
+    "The estimated time is greater than 24hrs." if phase.present? && phase.name == 'PLAN' && plan_time > ONE_DAY
+  end
+
+  # TODO, changes phase name
+  def get_empty_loc_obs
+    "Plan LOCs are not defined." if phase.present? && phase.name == 'PLAN' && (!plan_loc.present? || plan_loc == 0)
+  end
+
+  # TODO, changes phase name
+  def get_empty_total_obs
+    "Total project time is not defined." if phase.present? && phase.name == 'POST MORTEN' && (!total.present? || total == 0)
   end
 
   ## end observations
