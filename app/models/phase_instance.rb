@@ -52,37 +52,38 @@ class PhaseInstance < ApplicationRecord
   after_destroy :defect_deletion_consistence
   after_update :defect_deletion_consistence, if: :phase_id_changed?
 
-  public
-
   ## start observations for professor
   ONE_DAY = 1440
 
   # TODO, changes phase name
-  def get_elapsed_time_obs
-    "The stage lasts more than 24 hours." if phase.present? && phase.name != 'CODE' && get_total_without_break_time > ONE_DAY
+  def build_elapsed_time_obs
+    'The stage lasts more than 24 hours.' if phase.present? && phase.name != 'CODE' && build_total_without_break_time > ONE_DAY
   end
 
-  def get_fix_time_obs
-    "Fix time is greater than stage total time." if get_total_fix_time > get_total_without_break_time
+  def build_fix_time_obs
+    'Fix time is greater than stage total time.' if build_total_fix_time > build_total_without_break_time
   end
 
-  def get_break_time_obs
-    "The interruption time shouldn’t be that long." if interruption_time > get_total_without_fix_time
-  end
-
-  # TODO, changes phase name
-  def get_plan_time_obs
-    "The estimated time is greater than 24hrs." if phase.present? && phase.name == 'PLAN' && plan_time > ONE_DAY
+  def build_break_time_obs
+    'The interruption time shouldn’t be that long.' if interruption_time > build_total_without_fix_time
   end
 
   # TODO, changes phase name
-  def get_empty_loc_obs
-    "Plan LOCs are not defined." if phase.present? && phase.name == 'PLAN' && (!plan_loc.present? || plan_loc == 0)
+  def build_plan_time_obs
+    return unless phase.present? && phase.name == 'PLAN'
+    return 'The estimated time is not defined.' if !plan_time.present? || plan_time.zero?
+
+    'The estimated time is greater than 24hrs.' if plan_time > ONE_DAY
   end
 
   # TODO, changes phase name
-  def get_empty_total_obs
-    "Total project time is not defined." if phase.present? && phase.name == 'POST MORTEN' && (!total.present? || total == 0)
+  def build_empty_loc_obs
+    'Plan LOCs are not defined.' if phase.present? && phase.name == 'PLAN' && (!plan_loc.present? || plan_loc.zero?)
+  end
+
+  # TODO, changes phase name
+  def build_empty_total_obs
+    'Total project time is not defined.' if phase.present? && phase.name == 'POST MORTEN' && (!total.present? || total.zero?)
   end
 
   ## end observations
@@ -111,11 +112,11 @@ class PhaseInstance < ApplicationRecord
   def update_elapsed_time
     return unless end_time_changed? || start_time_changed? || interruption_time_changed?
 
-    self.elapsed_time = get_total_without_break_time
+    self.elapsed_time = build_total_without_break_time
   end
 
-  def get_total_without_break_time
-    total_without_break_time = get_total_time - interruption_time
+  def build_total_without_break_time
+    total_without_break_time = build_total_time - interruption_time
     if total_without_break_time.negative?
       0
     else
@@ -123,8 +124,8 @@ class PhaseInstance < ApplicationRecord
     end
   end
 
-  def get_total_without_fix_time
-    total_without_fix_time = get_total_time - get_total_fix_time
+  def build_total_without_fix_time
+    total_without_fix_time = build_total_time - build_total_fix_time
     if total_without_fix_time.negative?
       0
     else
@@ -132,7 +133,7 @@ class PhaseInstance < ApplicationRecord
     end
   end
 
-  def get_total_time
+  def build_total_time
     if start_time.present? && end_time.present?
       (end_time - start_time) / 60
     else
@@ -140,7 +141,7 @@ class PhaseInstance < ApplicationRecord
     end
   end
 
-  def get_total_fix_time
+  def build_total_fix_time
     total_fix_time = 0
     if defects.present?
       defects.each do |defect|
@@ -154,5 +155,4 @@ class PhaseInstance < ApplicationRecord
     self.first = phase.first
     self.last = phase.last
   end
-
 end
