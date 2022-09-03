@@ -8,6 +8,7 @@ module Api
       included do
         before_action :authenticate_user_or_professor!, except: :status
         before_action :check_user_authorization
+        before_action :professor_authenticated
       end
 
       def authenticate_user_or_professor!
@@ -27,6 +28,10 @@ module Api
 
       def current_authenticated
         current_user || current_professor
+      end
+
+      def professor_authenticated
+        @professor_authenticated ||= current_professor
       end
     end
   end

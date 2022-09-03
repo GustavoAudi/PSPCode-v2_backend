@@ -12,3 +12,9 @@ json.discovered_time defect.discovered_time
 json.fixed_time defect.fixed_time
 json.description defect.description
 json.fix_defect defect.fix_defect
+
+if @professor_authenticated.present? ## Observations for professor
+  json.observations do
+    json.discovered_time_fit defect.build_discovered_time_fit_obs
+  end
+end

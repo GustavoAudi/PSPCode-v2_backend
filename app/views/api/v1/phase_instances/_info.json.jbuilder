@@ -19,3 +19,17 @@ json.total phase_instance.total
 json.pip_problem phase_instance.pip_problem
 json.pip_proposal phase_instance.pip_proposal
 json.pip_notes phase_instance.pip_notes
+
+if @professor_authenticated.present? ## Observations for professor
+  json.observations do
+    json.elapsed_time phase_instance.build_elapsed_time_obs
+    json.fix_time phase_instance.build_fix_time_obs
+    json.break_time phase_instance.build_break_time_obs
+    json.plan_time phase_instance.build_plan_time_obs
+    json.empty_loc phase_instance.build_empty_loc_obs
+    json.empty_total phase_instance.build_empty_total_obs
+    conflict_values = phase_instance.build_phase_conflicts_obs(phase_instances)
+    json.time_conflict_end conflict_values.first
+    json.time_conflict_start conflict_values.second
+  end
+end
