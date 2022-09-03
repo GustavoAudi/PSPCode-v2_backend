@@ -36,6 +36,14 @@ class Defect < ApplicationRecord
 
   scope :with_fix_defect, -> { where 'fix_defect is not NULL' }
 
+  ## start observations for professor
+  def build_discovered_time_fit_obs
+    nil unless phase_instance.present? && phase_instance.start_time.present? && phase_instance.end_time.present? && discovered_time.present?
+    "The discovered time is outside the phase's total time." unless discovered_time >= phase_instance.start_time && discovered_time <= phase_instance.end_time
+  end
+
+  private
+
   def phase_detected
     phase_instance.phase
   end

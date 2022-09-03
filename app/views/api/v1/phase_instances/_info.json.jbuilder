@@ -19,6 +19,7 @@ json.total phase_instance.total
 json.pip_problem phase_instance.pip_problem
 json.pip_proposal phase_instance.pip_proposal
 json.pip_notes phase_instance.pip_notes
+
 if @professor_authenticated.present? ## Observations for professor
   json.observations do
     json.elapsed_time phase_instance.build_elapsed_time_obs
