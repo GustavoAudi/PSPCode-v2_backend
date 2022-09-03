@@ -86,6 +86,32 @@ class PhaseInstance < ApplicationRecord
     'Total project time is not defined.' if phase.present? && phase.name == 'POST MORTEN' && (!total.present? || total.zero?)
   end
 
+  def build_phase_conflicts_obs(phase_instances)
+    res1 = res2 = nil
+    [res1, res2] unless phase_instances.present?
+
+    post_phases, first_check, second_check = false
+    phase_instances.each do |phase_instance_it|
+      if phase_instance_it.id == id
+        post_phases = true
+        next
+      end
+      name = phase_instance_it.phase.present? && phase_instance_it.phase.name.present? ? phase_instance_it.phase.name : 'undefined'
+      first_check = phase_instance_it.start_time <= end_time if phase_instance_it.start_time.present? && end_time.present?
+      second_check = phase_instance_it.end_time >= start_time if phase_instance_it.end_time.present? && start_time.present?
+      if post_phases
+        if first_check
+          res1 = res1.present? ? res1 + ", #{name}" : "This phase ends after #{name}"
+        end
+      elsif second_check
+        res2 = res2.present? ? res2 + ", #{name}" : "This phase starts before #{name}"
+      end
+    end
+    res1 += ' starts.' if res1.present?
+    res2 += ' ends.' if res2.present?
+    [res1, res2]
+  end
+
   ## end observations
 
   private
