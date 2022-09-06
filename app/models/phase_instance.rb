@@ -54,10 +54,12 @@ class PhaseInstance < ApplicationRecord
 
   ## start observations for professor
   ONE_DAY = 1440
+  PLAN_ORDER = 1
+  CODE_ORDER = 3
+  POST_MORTEN_ORDER = 6
 
-  # TODO, changes phase name
   def build_elapsed_time_obs
-    'The stage lasts more than 24 hours.' if phase.present? && phase.name != 'CODE' && build_total_without_break_time > ONE_DAY
+    'The stage lasts more than 24 hours.' if phase.present? && phase.order != CODE_ORDER && build_total_without_break_time > ONE_DAY
   end
 
   def build_fix_time_obs
@@ -68,22 +70,19 @@ class PhaseInstance < ApplicationRecord
     'The interruption time shouldn’t be that long.' if interruption_time > build_total_without_fix_time
   end
 
-  # TODO, changes phase name
   def build_plan_time_obs
-    return unless phase.present? && phase.name == 'PLAN'
+    return unless phase.present? && phase.order == PLAN_ORDER
     return 'The estimated time is not defined.' if !plan_time.present? || plan_time.zero?
 
     'The estimated time is greater than 24hrs.' if plan_time > ONE_DAY
   end
 
-  # TODO, changes phase name
   def build_empty_loc_obs
-    'Plan LOCs are not defined.' if phase.present? && phase.name == 'PLAN' && (!plan_loc.present? || plan_loc.zero?)
+    'Plan LOCs are not defined.' if phase.present? && phase.order == PLAN_ORDER && (!plan_loc.present? || plan_loc.zero?)
   end
 
-  # TODO, changes phase name
   def build_empty_total_obs
-    'Total project time is not defined.' if phase.present? && phase.name == 'POST MORTEN' && (!total.present? || total.zero?)
+    'Total project time is not defined.' if phase.present? && phase.order == POST_MORTEN_ORDER && (!total.present? || total.zero?)
   end
 
   def build_phase_conflicts_obs(phase_instances)
