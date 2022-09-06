@@ -10,7 +10,7 @@ services:
       - "5444:5433"
       - "5443:5432"
   web:
-    image: docker.gonzaloy.com/pspcode:0.0.1
+    image: docker.gonzaloy.com/pspcode:0.0.2
     ports:
       - "3000:3000"
     depends_on:
