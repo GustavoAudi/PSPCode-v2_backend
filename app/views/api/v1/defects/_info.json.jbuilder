@@ -16,5 +16,6 @@ json.fix_defect defect.fix_defect
 if @professor_authenticated.present? ## Observations for professor
   json.observations do
     json.discovered_time_fit defect.build_discovered_time_fit_obs
+    json.phase_injected defect.build_phase_injected_obs(@phase_instances)
   end
 end

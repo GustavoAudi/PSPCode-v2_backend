@@ -42,6 +42,30 @@ class Defect < ApplicationRecord
     "The discovered time is outside the phase's total time." unless discovered_time >= phase_instance.start_time && discovered_time <= phase_instance.end_time
   end
 
+  def build_phase_injected_obs(phase_instances)
+    post_phases = false
+    if phase_instances.present?
+      phase_instances.each do |phase_instance_it|
+        if phase_instance_it.id == phase_instance.id
+          post_phases = true
+          next
+        end
+        if post_phases &&
+           phase_injected.present? &&
+           phase_injected.name.present? &&
+           phase_instance_it.phase.present? &&
+           phase_instance_it.phase.name.present? &&
+           phase_instance.phase.present? &&
+           phase_instance.phase.name.present? &&
+           phase_injected.name == phase_instance_it.phase.name &&
+           phase_injected.name != phase_instance.phase.name
+          return 'The phase where the defect was injected should be prior to this one'
+        end
+      end
+    end
+    nil
+  end
+
   private
 
   def phase_detected

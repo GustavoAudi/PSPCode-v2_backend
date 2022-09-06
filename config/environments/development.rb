@@ -15,7 +15,7 @@ Rails.application.configure do
   config.consider_all_requests_local = true
 
   # host for deploy.
-  config.hosts << "pspcodeservice.gonzaloy.com"
+  config.hosts << 'pspcodeservice.gonzaloy.com'
 
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?

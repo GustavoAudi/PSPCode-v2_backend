@@ -28,7 +28,7 @@ if @professor_authenticated.present? ## Observations for professor
     json.plan_time phase_instance.build_plan_time_obs
     json.empty_loc phase_instance.build_empty_loc_obs
     json.empty_total phase_instance.build_empty_total_obs
-    conflict_values = phase_instance.build_phase_conflicts_obs(phase_instances)
+    conflict_values = phase_instance.build_phase_conflicts_obs(@phase_instances)
     json.time_conflict_end conflict_values.first
     json.time_conflict_start conflict_values.second
   end
