@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_03_25_184856) do
+ActiveRecord::Schema.define(version: 2022_10_16_011830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,13 @@ ActiveRecord::Schema.define(version: 2018_03_25_184856) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+  end
+
+  create_table "criteria", force: :cascade do |t|
+    t.string "description"
+    t.boolean "not_exists_in_psp00", default: false
+    t.bigint "section_id", null: false
+    t.index ["section_id"], name: "index_criteria_on_section_id"
   end
 
   create_table "defects", force: :cascade do |t|
@@ -214,6 +221,24 @@ ActiveRecord::Schema.define(version: 2018_03_25_184856) do
     t.index ["assigned_project_id"], name: "index_project_deliveries_on_assigned_project_id"
   end
 
+  create_table "project_fb_crt_instances", force: :cascade do |t|
+    t.boolean "approved", default: false
+    t.string "comment"
+    t.bigint "criterion_id", null: false
+    t.bigint "project_feedback_id", null: false
+    t.index ["criterion_id"], name: "index_project_fb_crt_instances_on_criterion_id"
+    t.index ["project_feedback_id"], name: "index_project_fb_crt_instances_on_project_feedback_id"
+  end
+
+  create_table "project_feedbacks", force: :cascade do |t|
+    t.string "comment"
+    t.boolean "approved", default: false
+    t.date "delivered_date", null: false
+    t.date "reviewed_date"
+    t.bigint "project_delivery_id", null: false
+    t.index ["project_delivery_id"], name: "index_project_feedbacks_on_project_delivery_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "process_id", null: false
@@ -239,6 +264,10 @@ ActiveRecord::Schema.define(version: 2018_03_25_184856) do
     t.boolean "has_plan_time", default: false
     t.boolean "has_plan_loc", default: false
     t.boolean "has_pip", default: false
+  end
+
+  create_table "sections", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "statuses", force: :cascade do |t|

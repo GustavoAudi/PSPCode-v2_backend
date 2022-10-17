@@ -16,6 +16,10 @@ PhaseInstance.destroy_all
 Defect.destroy_all
 ProfessorCourse.destroy_all
 PspProcess.destroy_all
+Section.destroy_all
+Criterion.destroy_all
+ProjectFeedback.destroy_all
+ProjectFeedbackCriterionInstance.destroy_all
 
 # Creating courses
 Course.create! name: 'PSP 2020',
@@ -139,4 +143,31 @@ Course.first.students.each do |student|
   Course.first.course_projects.each do |course_project|
     AssignedProject.create! user: student, course_project_instance: course_project
   end
+end
+
+Section.create! name: 'Seccion de prueba 1'
+Section.create! name: 'Seccion de prueba 2'
+
+Criterion.create! description: 'criterio de prueba 1', section: Section.first
+Criterion.create! description: 'criterio de prueba 2', section: Section.first
+Criterion.create! description: 'criterio de prueba 3', section: Section.first
+Criterion.create! description: 'criterio de prueba 4', section: Section.first
+Criterion.create! description: 'criterio de prueba 5', section: Section.first
+Criterion.create! description: 'criterio de prueba 6', section: Section.first
+
+Criterion.create! description: 'Otro criterio de prueba 1', section: Section.second
+Criterion.create! description: 'Otro criterio de prueba 2', section: Section.second
+Criterion.create! description: 'Otro criterio de prueba 3', section: Section.second
+Criterion.create! description: 'Otro criterio de prueba 4', section: Section.second
+Criterion.create! description: 'Otro criterio de prueba 5', section: Section.second
+Criterion.create! description: 'Otro criterio de prueba 6', section: Section.second
+
+# Create Project feedbacks empty for students
+
+ProjectDelivery.all.each do |project_delivery|
+  project_feedback = ProjectFeedback.create! delivered_date: Date.today ,comment: "Comentario de prueba para feedback test", project_delivery: project_delivery
+  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 1", criterion: Criterion.first, project_feedback: project_feedback
+  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 2", criterion: Criterion.second, project_feedback: project_feedback
+  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 3", criterion: Criterion.third, project_feedback: project_feedback
+  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 4", criterion: Criterion.fourth, project_feedback: project_feedback
 end
