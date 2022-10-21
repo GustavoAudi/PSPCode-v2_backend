@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2022_10_16_011830) do
   end
 
   create_table "criteria", force: :cascade do |t|
-    t.string "description"
-    t.boolean "not_exists_in_psp00", default: false
+    t.string "description", null: false
+    t.boolean "only_in_psp01", default: false
     t.bigint "section_id", null: false
     t.index ["section_id"], name: "index_criteria_on_section_id"
   end
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(version: 2022_10_16_011830) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
   end
 
   create_table "statuses", force: :cascade do |t|
