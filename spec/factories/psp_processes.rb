@@ -13,7 +13,7 @@
 #  has_pip       :boolean          default(FALSE)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :psp_process do
     name { Faker::Name.unique.name }
   end

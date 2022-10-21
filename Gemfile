@@ -47,6 +47,7 @@ gem 'wdm', '~> 0.1.1' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 group :development, :test do
   gem 'bullet', '~> 7.0.1'
   gem 'factory_bot', '~> 6.2.1'
+  gem 'factory_bot_rails'
   gem 'faker', '~> 2.20.0'
   gem 'pry-byebug', '~> 3.9.0', platform: :mri
   gem 'rails-controller-testing', '~> 1.0.5'
@@ -77,7 +78,6 @@ group :test do
   gem 'net-smtp', require: false
   gem 'net-imap', require: false
   gem 'net-pop', require: false
-  gem 'factory_girl_rails', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

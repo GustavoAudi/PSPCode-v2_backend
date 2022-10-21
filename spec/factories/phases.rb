@@ -12,7 +12,7 @@
 #  last        :boolean          default(FALSE)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :phase do
     name { Faker::Name.unique.name }
     description { Faker::Lorem.sentence }

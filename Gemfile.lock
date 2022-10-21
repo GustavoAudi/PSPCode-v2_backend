@@ -143,11 +143,9 @@ GEM
     execjs (2.8.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
-    factory_girl (4.9.0)
-      activesupport (>= 3.0.0)
-    factory_girl_rails (4.9.0)
-      factory_girl (~> 4.9.0)
-      railties (>= 3.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
     faraday (1.10.0)
@@ -505,7 +503,7 @@ DEPENDENCIES
   devise_token_auth (~> 1.2.0)
   draper (~> 4.0.2)
   factory_bot (~> 6.2.1)
-  factory_girl_rails
+  factory_bot_rails
   faker (~> 2.20.0)
   fog-aws (~> 3.13.0)
   font-awesome-rails
