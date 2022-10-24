@@ -28,6 +28,10 @@ Rails.application.routes.draw do
               resources :phase_instances, only: %i[create update index destroy] do
                 resources :defects, only: %i[create update index destroy]
               end
+              post 'project_feedback', to: 'project_feedback#create'
+              get 'project_feedback', to: 'project_feedback#show'
+              put 'project_feedback', to: 'project_feedback#update'
+              delete 'project_feedback', to: 'project_feedback#destroy'
               get 'summary'
             end
             resources :messages, only: %i[create index]

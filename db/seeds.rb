@@ -19,7 +19,7 @@ PspProcess.destroy_all
 Section.destroy_all
 Criterion.destroy_all
 ProjectFeedback.destroy_all
-ProjectFeedbackCriterionInstance.destroy_all
+Correction.destroy_all
 
 # Creating courses
 Course.create! name: 'PSP 2020',
@@ -63,8 +63,6 @@ Phase.create! name: 'POST MORTEN', description: 'This phase if estimations were 
 PspProcess.create! name: 'PSP0.0', has_plan_time: false, has_plan_loc: false, has_pip: false
 
 PspProcess.create! name: 'PSP0.1', has_plan_time: true, has_plan_loc: true, has_pip: true
-
-PspProcess.create! name: 'PSP1.0', has_plan_time: true, has_plan_loc: true, has_pip: false
 
 # Assign phases to processes
 PspProcess.all.each do |process|
@@ -118,7 +116,7 @@ Professor.create! first_name: 'Leticia',
 
 Professor.create! first_name: 'professor',
                   last_name: 'lastname',
-                  email: 'gusta97-2009@hotmail.com',
+                  email: 'admin@mail.com',
                   password: 'admin'
 
 # Assign Professor to course
@@ -145,29 +143,15 @@ Course.first.students.each do |student|
   end
 end
 
-Section.create! name: 'Seccion de prueba 1'
-Section.create! name: 'Seccion de prueba 2'
+Section.create! name: 'Programa y Resultado de Test'
+Section.create! name: 'Log de Tiempo'
+Section.create! name: 'Log de Defectos'
+Section.create! name: 'Formulario PIP'
+Section.create! name: 'Planning Summary'
+Section.create! name: 'Chequeo de Consistencia'
+Section.create! name: 'General'
 
 Criterion.create! description: 'criterio de prueba 1', section: Section.first
 Criterion.create! description: 'criterio de prueba 2', section: Section.first
-Criterion.create! description: 'criterio de prueba 3', section: Section.first
-Criterion.create! description: 'criterio de prueba 4', section: Section.first
-Criterion.create! description: 'criterio de prueba 5', section: Section.first
-Criterion.create! description: 'criterio de prueba 6', section: Section.first
-
-Criterion.create! description: 'Otro criterio de prueba 1', section: Section.second
-Criterion.create! description: 'Otro criterio de prueba 2', section: Section.second
-Criterion.create! description: 'Otro criterio de prueba 3', section: Section.second
-Criterion.create! description: 'Otro criterio de prueba 4', section: Section.second
-Criterion.create! description: 'Otro criterio de prueba 5', section: Section.second
-Criterion.create! description: 'Otro criterio de prueba 6', section: Section.second
-
-# Create Project feedbacks empty for students
-
-ProjectDelivery.all.each do |project_delivery|
-  project_feedback = ProjectFeedback.create! delivered_date: Date.today ,comment: "Comentario de prueba para feedback test", project_delivery: project_delivery
-  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 1", criterion: Criterion.first, project_feedback: project_feedback
-  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 2", criterion: Criterion.second, project_feedback: project_feedback
-  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 3", criterion: Criterion.third, project_feedback: project_feedback
-  ProjectFeedbackCriterionInstance.create! comment: "comentario criterio 4", criterion: Criterion.fourth, project_feedback: project_feedback
-end
+Criterion.create! description: 'criterio de prueba 3', section: Section.second
+Criterion.create! description: 'criterio de prueba 4', section: Section.second

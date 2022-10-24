@@ -20,6 +20,7 @@ class ProjectDelivery < ApplicationRecord
   has_many :phase_instances, dependent: :destroy
   has_many :statuses
   has_many :defects, through: :phase_instances
+  has_one :project_feedback
   belongs_to :assigned_project
 
   validates :assigned_project, presence: true

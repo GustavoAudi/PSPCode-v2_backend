@@ -15,7 +15,7 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_professor)
 
-  config.included_models = %w[ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance Section Criterion]
+  config.included_models = %w[ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance Section Criterion ProjectFeedback Correction]
 
   ## == Needed to reload in dev ENV ==
   config.parent_controller = ApplicationController.to_s

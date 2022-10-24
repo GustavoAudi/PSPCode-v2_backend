@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 2022_10_16_011830) do
     t.index ["user_id"], name: "index_assigned_projects_on_user_id"
   end
 
+  create_table "corrections", force: :cascade do |t|
+    t.boolean "approved", default: false
+    t.string "comment"
+    t.bigint "criterion_id", null: false
+    t.bigint "project_feedback_id", null: false
+    t.index ["criterion_id"], name: "index_corrections_on_criterion_id"
+    t.index ["project_feedback_id"], name: "index_corrections_on_project_feedback_id"
+  end
+
   create_table "course_project_instances", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "course_id", null: false
@@ -219,15 +228,6 @@ ActiveRecord::Schema.define(version: 2022_10_16_011830) do
     t.bigint "assigned_project_id", null: false
     t.integer "version_number", default: 1
     t.index ["assigned_project_id"], name: "index_project_deliveries_on_assigned_project_id"
-  end
-
-  create_table "project_fb_crt_instances", force: :cascade do |t|
-    t.boolean "approved", default: false
-    t.string "comment"
-    t.bigint "criterion_id", null: false
-    t.bigint "project_feedback_id", null: false
-    t.index ["criterion_id"], name: "index_project_fb_crt_instances_on_criterion_id"
-    t.index ["project_feedback_id"], name: "index_project_fb_crt_instances_on_project_feedback_id"
   end
 
   create_table "project_feedbacks", force: :cascade do |t|

@@ -1,6 +1,6 @@
-class AddProjectFeedbackCriterionInstanceTable < ActiveRecord::Migration[6.1]
+class AddCorrectionTable < ActiveRecord::Migration[6.1]
   def change
-    create_table :project_fb_crt_instances do |t|
+    create_table :corrections do |t|
       t.boolean :approved, default: false
       t.string :comment
       t.references :criterion, null: false
