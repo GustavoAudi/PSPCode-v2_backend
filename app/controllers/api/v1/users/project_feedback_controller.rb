@@ -35,8 +35,6 @@ module Api
           return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
           project_feedback.update(project_feedback_params)
-          render 'api/v1/project_feedback/show'
-
           render 'api/v1/project_feedback/success_msg'
         end
 
