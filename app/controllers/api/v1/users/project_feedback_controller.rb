@@ -35,6 +35,8 @@ module Api
           return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
           project_feedback.update(project_feedback_params)
+          render 'api/v1/project_feedback/show'
+
           render 'api/v1/project_feedback/success_msg'
         end
 
@@ -50,12 +52,13 @@ module Api
         def project_feedback_params
           all_new_corrections = []
           params.require('grouped_corrections').each do |group|
-            all_new_corrections.concat(group[:corrections].map { |c| Correction.to_h(c) })
+            all_new_corrections.concat(group[:corrections].map { |c| Correction.to_h(c).compact })
           end
 
           params.require('project_feedback')
                 .permit(:comment, :approved, :reviewed_date)
                 .merge(corrections_attributes: all_new_corrections)
+                .compact
         end
 
         def project_feedback
