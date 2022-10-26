@@ -10,6 +10,8 @@ module Api
         helper_method :user
 
         def create
+          return render 'api/v1/project_feedback/already_exists_error', status: 403 if project_feedback.present?
+
           p_f = ProjectFeedback.create! delivered_date: Date.today, project_delivery: project_delivery
           Criterion.all.each do |c|
             if assigned_project.process.name.eql?("PSP0.1")
@@ -20,30 +22,41 @@ module Api
               end
             end
           end
+          render 'api/v1/project_feedback/success_msg'
         end
 
         def show
-          @project_feedback = project_delivery.project_feedback
+          return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
+
           render 'api/v1/project_feedback/show'
         end
 
         def update
-          all_new_corrections = []
-          params[:grouped_corrections].as_json.each do |group|
-            all_new_corrections.concat(group["corrections"].map { |c| Correction.to_h(c) })
-          end
+          return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
-          project_feedback.update(comment: params[:comment],
-                                  approved: params[:approved],
-                                  reviewed_date: params[:reviewed_date],
-                                  corrections_attributes: all_new_corrections)
+          project_feedback.update(project_feedback_params)
+          render 'api/v1/project_feedback/success_msg'
         end
 
         def destroy
+          return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
+
           project_feedback.destroy!
+          render 'api/v1/project_feedback/success_msg'
         end
 
         private
+
+        def project_feedback_params
+          all_new_corrections = []
+          params.require('grouped_corrections').each do |group|
+            all_new_corrections.concat(group[:corrections].map { |c| Correction.to_h(c) })
+          end
+
+          params.require('project_feedback')
+                .permit(:comment, :approved, :reviewed_date)
+                .merge(corrections_attributes: all_new_corrections)
+        end
 
         def project_feedback
           @project_feedback ||= project_delivery.project_feedback
