@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProjectFeedback < ApplicationRecord
   has_many :corrections, dependent: :destroy
   belongs_to :project_delivery
@@ -14,17 +16,16 @@ class ProjectFeedback < ApplicationRecord
 
     def initialize(section_name:, corrections:)
       @section_name = section_name
-      @corrections = corrections.map { |correction| CorrectionDto.new(correction: correction) }
+      @corrections = corrections.sort_by { |c| c.criterion.order }.map { |c| CorrectionDto.new(correction: c) }
     end
-
   end
 
   class CorrectionDto
     attr_reader :correction
 
     # TODO
-    def getObsPhases(criterion_id)
-      "phases"
+    def getObsPhases(_criterion_id)
+      'phases'
     end
 
     def initialize(correction:)
@@ -35,5 +36,4 @@ class ProjectFeedback < ApplicationRecord
       @obs_phases = getObsPhases(correction.criterion_id)
     end
   end
-
 end

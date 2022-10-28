@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 project_feedback = @project_feedback
 
 json.id project_feedback.id

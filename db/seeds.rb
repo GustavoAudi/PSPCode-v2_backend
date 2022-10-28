@@ -77,22 +77,22 @@ Project.create! name: 'Project 1', process: PspProcess.first,
 Project.create! name: 'Project 2', process: PspProcess.second,
                 description_file: Rails.root.join('public/files/e2.pdf').open
 
-Project.create! name: 'Project 3', process: PspProcess.third,
+Project.create! name: 'Project 3', process: PspProcess.first,
                 description_file: Rails.root.join('public/files/e3.pdf').open
 
-Project.create! name: 'Project 4', process: PspProcess.third,
+Project.create! name: 'Project 4', process: PspProcess.first,
                 description_file: Rails.root.join('public/files/e4.pdf').open
 
-Project.create! name: 'Project 5', process: PspProcess.third,
+Project.create! name: 'Project 5', process: PspProcess.second,
                 description_file: Rails.root.join('public/files/e5.pdf').open
 
-Project.create! name: 'Project 6', process: PspProcess.third,
+Project.create! name: 'Project 6', process: PspProcess.second,
                 description_file: Rails.root.join('public/files/e6.pdf').open
 
-Project.create! name: 'Project 7', process: PspProcess.third,
+Project.create! name: 'Project 7', process: PspProcess.first,
                 description_file: Rails.root.join('public/files/e7.pdf').open
 
-Project.create! name: 'Project 8', process: PspProcess.third,
+Project.create! name: 'Project 8', process: PspProcess.first,
                 description_file: Rails.root.join('public/files/e8.pdf').open
 
 # Assign project to course
@@ -150,8 +150,3 @@ Section.create! name: 'Formulario PIP'
 Section.create! name: 'Planning Summary'
 Section.create! name: 'Chequeo de Consistencia'
 Section.create! name: 'General'
-
-Criterion.create! description: 'criterio de prueba 1', section: Section.first
-Criterion.create! description: 'criterio de prueba 2', section: Section.first
-Criterion.create! description: 'criterio de prueba 3', section: Section.second
-Criterion.create! description: 'criterio de prueba 4', section: Section.second

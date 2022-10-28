@@ -66,6 +66,6 @@ FactoryBot.define do
   trait :with_fb do
     password nil
     email nil
-    provider {"facebook"}
+    provider { 'facebook' }
   end
 end

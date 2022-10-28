@@ -72,12 +72,12 @@ end
 
 group :test do
   gem 'database_cleaner', '~> 2.0.1'
+  gem 'net-imap', require: false
+  gem 'net-pop', require: false
+  gem 'net-smtp', require: false
   gem 'shoulda-matchers', '~> 5.1.0'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webmock', '~> 3.14.0'
-  gem 'net-smtp', require: false
-  gem 'net-imap', require: false
-  gem 'net-pop', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

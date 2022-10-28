@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Correction < ApplicationRecord
   belongs_to :criterion
   belongs_to :project_feedback

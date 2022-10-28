@@ -4,6 +4,7 @@ class AddCriterionTable < ActiveRecord::Migration[6.1]
       t.string :description, null: false
       t.boolean :only_in_psp01, default: false
       t.references :section, null: false
+      t.integer :order, null: false
     end
   end
 end

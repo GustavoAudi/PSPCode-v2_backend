@@ -14,12 +14,10 @@ module Api
 
           p_f = ProjectFeedback.create! delivered_date: Date.today, project_delivery: project_delivery
           Criterion.all.each do |c|
-            if assigned_project.process.name.eql?("PSP0.1")
+            if assigned_project.process.name.eql?('PSP0.1')
               Correction.create! criterion: c, project_feedback: p_f
             else
-              unless c.only_in_psp01
-                Correction.create! criterion: c, project_feedback: p_f
-              end
+              Correction.create! criterion: c, project_feedback: p_f unless c.only_in_psp01
             end
           end
           render 'api/v1/project_feedback/success_msg'

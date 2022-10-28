@@ -134,7 +134,7 @@ describe User do
       describe 'set_last_seen_values' do
         let(:user) do
           create :user, last_seen_event_notification: nil,
-                 last_seen_message_notification: nil
+                        last_seen_message_notification: nil
         end
 
         it 'assigns last_seen_event_notification' do

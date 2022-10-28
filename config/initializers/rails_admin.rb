@@ -297,18 +297,21 @@ RailsAdmin.config do |config|
       field :id
       field :description
       field :section
+      field :order
       field :only_in_psp01
     end
 
     show do
       field :description
       field :section
+      field :order
       field :only_in_psp01
     end
 
     edit do
       field :description
       field :section
+      field :order
       field :only_in_psp01
     end
   end
