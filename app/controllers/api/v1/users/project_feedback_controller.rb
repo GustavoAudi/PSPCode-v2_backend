@@ -26,6 +26,8 @@ module Api
         def show
           return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
+          @phase_instances = project_delivery.phase_instances.order(:id).page params[:page]
+          @project_feedback = project_delivery.project_feedback
           render 'api/v1/project_feedback/show'
         end
 

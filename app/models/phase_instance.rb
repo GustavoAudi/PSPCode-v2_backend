@@ -58,6 +58,7 @@ class PhaseInstance < ApplicationRecord
   CODE_ORDER = 3
   POST_MORTEN_ORDER = 6
 
+  ## algorithms
   def build_elapsed_time_obs
     'The stage lasts more than 24 hours.' if phase.present? && phase.order != CODE_ORDER && build_total_without_break_time > ONE_DAY
   end
