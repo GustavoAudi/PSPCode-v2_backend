@@ -49,8 +49,11 @@ module Api
 
         def project_feedback_params
           all_new_corrections = []
-          params.require('grouped_corrections').each do |group|
-            all_new_corrections.concat(group[:corrections].map { |c| Correction.to_h(c).compact })
+          grouped_corrections = params[:grouped_corrections]
+          if grouped_corrections.present?
+            grouped_corrections.each do |group|
+              all_new_corrections.concat(group[:corrections].map { |c| Correction.to_h(c).compact })
+            end
           end
 
           params.require('project_feedback')

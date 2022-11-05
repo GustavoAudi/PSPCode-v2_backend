@@ -5,7 +5,8 @@ class AddCriterionTable < ActiveRecord::Migration[6.1]
       t.boolean :only_in_psp01, default: false
       t.references :section, null: false
       t.integer :order, null: false
-      t.integer :algorithm, null: false, default: 0
+      t.integer :algorithm, default: nil
+      t.integer :algorithm_type, default: nil
     end
   end
 end

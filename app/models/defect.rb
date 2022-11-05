@@ -37,6 +37,8 @@ class Defect < ApplicationRecord
   scope :with_fix_defect, -> { where 'fix_defect is not NULL' }
 
   ## start observations for professor
+
+  ## algorithms
   def build_discovered_time_fit_obs
     if phase_instance.present? && phase_instance.start_time.present? && phase_instance.end_time.present? && discovered_time.present? &&
        (discovered_time < phase_instance.start_time || discovered_time > phase_instance.end_time)
@@ -69,6 +71,8 @@ class Defect < ApplicationRecord
     end
     nil
   end
+
+  ## end observations
 
   private
 

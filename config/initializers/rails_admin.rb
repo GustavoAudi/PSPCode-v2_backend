@@ -305,6 +305,8 @@ RailsAdmin.config do |config|
       field :description
       field :section
       field :order
+      field :algorithm
+      field :algorithm_type
       field :only_in_psp01
     end
 
@@ -313,6 +315,7 @@ RailsAdmin.config do |config|
       field :section
       field :order
       field :algorithm
+      field :algorithm_type
       field :only_in_psp01
     end
   end

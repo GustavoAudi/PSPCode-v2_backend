@@ -144,9 +144,108 @@ Course.first.students.each do |student|
 end
 
 Section.create! name: 'Programa y Resultado de Test'
+Criterion.create! description: 'El programa resulta ser funcional.',
+                  section: Section.find_by_name('Programa y Resultado de Test'),
+                  order: 1
+Criterion.create! description: 'Todos los test requeridos fueron ejecutados.',
+                  section: Section.find_by_name('Programa y Resultado de Test'),
+                  order: 2
+Criterion.create! description: 'La salida actual es correcta para cada uno de los test.',
+                  section: Section.find_by_name('Programa y Resultado de Test'),
+                  order: 3
+Criterion.create! description: 'El código es compatible con el estándar de codificación.',
+                  section: Section.find_by_name('Programa y Resultado de Test'),
+                  order: 4, only_in_psp01: true
+Criterion.create! description: 'Los resultados de los test son consistentes con el estándar de conteo.',
+                  section: Section.find_by_name('Programa y Resultado de Test'),
+                  order: 5
+
 Section.create! name: 'Log de Tiempo'
+Criterion.create! description: 'Los datos del tiempo se registran en todas las fases del proceso.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 1
+Criterion.create! description: 'Las etapas del proceso siguen una secuencia  adecuada.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 2
+Criterion.create! description: 'Los tiempos son registrados en los pasos correctos del proceso.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 3, algorithm: 5, algorithm_type: 0
+Criterion.create! description: 'Los tiempos de las interrupciones son registrados de forma apropiada.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 4, algorithm: 2, algorithm_type: 0
+Criterion.create! description: 'Los datos del tiempo son completos y razonables.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 5, algorithm: 0, algorithm_type: 0
+Criterion.create! description: 'Los datos fueron registrados a medida se realizaba el trabajo.',
+                  section: Section.find_by_name('Log de Tiempo'),
+                  order: 6
+
 Section.create! name: 'Log de Defectos'
+Criterion.create! description: 'Todos los defectos tienen la información de registro solicitada.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 1
+Criterion.create! description: 'Los defectos fueron inyectados antes de ser removidos.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 2, algorithm: 7, algorithm_type: 1
+Criterion.create! description: 'Todos los defectos tienen tiempo de corrección.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 3
+Criterion.create! description: 'Los defectos inyectados en compilación y test tienen “fix defect” asociado.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 4
+Criterion.create! description: 'Los defectos son descritos adecuadamente.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 5
+Criterion.create! description: 'El tipo de defecto es consistente con la descripción.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 6
+Criterion.create! description: 'El tipo de defecto es consistente con la fase de inyección.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 7
+Criterion.create! description: 'El tipo de defecto es asignado consistentemente.',
+                  section: Section.find_by_name('Log de Defectos'),
+                  order: 8
+
 Section.create! name: 'Formulario PIP'
+Criterion.create! description: 'El formulario PIP está completo.',
+                  section: Section.find_by_name('Formulario PIP'),
+                  order: 1, only_in_psp01: true
+Criterion.create! description: 'Los registros del PIP muestran perspicacia y reflexión.',
+                  section: Section.find_by_name('Formulario PIP'),
+                  order: 2
+
 Section.create! name: 'Planning Summary'
+Criterion.create! description: 'El tiempo total planificado fue ingresado correctamente.',
+                  section: Section.find_by_name('Planning Summary'),
+                  order: 1, algorithm: 3, algorithm_type: 0
+Criterion.create! description: 'Los tamaños planificado y actual están ingresados correctamente.',
+                  section: Section.find_by_name('Planning Summary'),
+                  order: 2, algorithm: 4, only_in_psp01: true, algorithm_type: 0
+
 Section.create! name: 'Chequeo de Consistencia'
+Criterion.create! description: 'Los defectos removidos son consistentes con los tiempos en las fases de compilación y test.',
+                  section: Section.find_by_name('Chequeo de Consistencia'),
+                  order: 1, algorithm: 6, algorithm_type: 1
+Criterion.create! description: 'El total del tiempo de corrección en cada fase es menor que el tiempo total dedicado a la misma.',
+                  section: Section.find_by_name('Chequeo de Consistencia'),
+                  order: 2, algorithm: 1, algorithm_type: 0
+Criterion.create! description: 'Los datos de los defectos y las fases son consistentes con el Log de tiempo.',
+                  section: Section.find_by_name('Chequeo de Consistencia'),
+                  order: 3
+Criterion.create! description: 'Planning summary es consistente con el log de tiempos.',
+                  section: Section.find_by_name('Chequeo de Consistencia'),
+                  order: 4
+Criterion.create! description: 'Planning summary es consistente con el log de defectos.',
+                  section: Section.find_by_name('Chequeo de Consistencia'),
+                  order: 5
+
 Section.create! name: 'General'
+Criterion.create! description: 'Se siguió el proceso definido.',
+                  section: Section.find_by_name('General'),
+                  order: 1
+Criterion.create! description: 'Los datos recogidos del proceso son completos, precisos y coherentes.',
+                  section: Section.find_by_name('General'),
+                  order: 2
+Criterion.create! description: 'El estudiante hizo su propio trabajo.',
+                  section: Section.find_by_name("General"),
+                  order: 3

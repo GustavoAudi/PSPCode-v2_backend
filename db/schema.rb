@@ -70,7 +70,8 @@ ActiveRecord::Schema.define(version: 2022_10_16_011830) do
     t.boolean "only_in_psp01", default: false
     t.bigint "section_id", null: false
     t.integer "order", null: false
-    t.integer "algorithm", default: 0, null: false
+    t.integer "algorithm"
+    t.integer "algorithm_type"
     t.index ["section_id"], name: "index_criteria_on_section_id"
   end
 

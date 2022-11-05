@@ -32,14 +32,39 @@ class ProjectFeedback < ApplicationRecord
     end
 
     def get_obs_phases(correction, phase_instances)
-      algorithm_method_name = "build_#{correction.criterion.algorithm}_obs"
       phase_obs = []
+      algorithm = correction.criterion.algorithm
+      return phase_obs unless algorithm.present?
+
       if phase_instances.present?
-        phase_instances.each_with_index do |phase_instance, index|
-          result = phase_instance.send(algorithm_method_name)
-          phase_obs << { index: index, name: phase_instance.phase.name } if result.present? && phase_instance.phase.present? && phase_instance.phase.name.present?
+        algorithms = algorithm.split('_and_')
+        algorithms.each do |a|
+          algorithm_method_name = "build_#{a}_obs"
+
+          phase_instances.each_with_index do |phase_instance, index|
+            result = nil
+            if correction.criterion.algorithm_type == 'phase'
+              if phase_instance.method(algorithm_method_name).parameters.length.positive?
+                result = 'any' if phase_instance.send(algorithm_method_name, phase_instances).any?
+              else
+                result = phase_instance.send(algorithm_method_name)
+              end
+            elsif phase_instance.defects.present?
+              phase_instance.defects.each do |defect|
+                result = if defect.method(algorithm_method_name).parameters.length.positive?
+                           defect.send(algorithm_method_name, phase_instances)
+                         else
+                           defect.send(algorithm_method_name)
+                         end
+                break if result.present?
+              end
+            end
+
+            phase_obs << { index: index, name: phase_instance.phase.name } if result.present? && phase_instance.phase.present? && phase_instance.phase.name.present?
+          end
         end
       end
+
       phase_obs
     end
   end

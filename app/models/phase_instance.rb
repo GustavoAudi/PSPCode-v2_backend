@@ -53,6 +53,7 @@ class PhaseInstance < ApplicationRecord
   after_update :defect_deletion_consistence, if: :phase_id_changed?
 
   ## start observations for professor
+
   ONE_DAY = 1440
   PLAN_ORDER = 1
   CODE_ORDER = 3
@@ -86,7 +87,7 @@ class PhaseInstance < ApplicationRecord
     'Total project time is not defined.' if phase.present? && phase.order == POST_MORTEN_ORDER && (!total.present? || total.zero?)
   end
 
-  def build_phase_conflicts_obs(phase_instances)
+  def build_time_conflicts_obs(phase_instances)
     res1 = res2 = nil
     [res1, res2] unless phase_instances.present?
 
