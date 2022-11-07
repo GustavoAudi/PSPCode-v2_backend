@@ -56,9 +56,14 @@ class Professor < ApplicationRecord
   validates :password, presence: true, on: :create
   validate :email_user_professor_uniqueness
 
-  def approve_project(assigned_project, message_params)
+  def approve_project(assigned_project)
     assigned_project.update!(status: :approved)
-    message = assigned_project.messages.create! message_params.merge!(message_type: :approved)
+    message = assigned_project
+                .messages
+                .create(text: '¡El proyecto ' + assigned_project.course_project_instance.name + ' fue aprobado!
+                               Puedes ver el feedback completo en la pestaña CORRECTION.',
+                        message_type: :approved,
+                        sender: self)
     MailerApprovedNotificationJob.perform_now('approved',
                                               assigned_project.user,
                                               self,
@@ -66,10 +71,15 @@ class Professor < ApplicationRecord
                                               message)
   end
 
-  def reject_project(assigned_project, message_params)
+  def reject_project(assigned_project)
     assigned_project.update!(status: :need_correction)
-    message = assigned_project.messages.create! message_params.merge!(message_type: :rejected)
-    MailerRejectedNotificationJob.perform_now('need_correction',
+    message = assigned_project
+                .messages
+                .create(text: 'El proyecto ' + assigned_project.course_project_instance.name + ' requiere correcciones, debes realizar una nueva versión.
+                               Puedes ver el feedback completo en la pestaña CORRECTION.',
+                        message_type: :rejected,
+                        sender: self)
+    MailerApprovedNotificationJob.perform_now('need_correction',
                                               assigned_project.user,
                                               self,
                                               assigned_project,

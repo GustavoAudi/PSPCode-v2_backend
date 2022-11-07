@@ -41,10 +41,7 @@ Rails.application.routes.draw do
 
         resources :courses, only: %i[index], module: :professors do
           resources :course_project_instances, only: %i[index] do
-            resources :assigned_projects, only: %i[create] do
-              put :approve_project
-              put :reject_project
-            end
+            resources :assigned_projects, only: %i[create]
             resources :users, only: %i[index]
           end
         end

@@ -35,6 +35,15 @@ module Api
           return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
           project_feedback.update(project_feedback_params)
+
+          if project_feedback.reviewed_date.present?
+            if project_feedback.approved.present?
+              @professor_authenticated.approve_project(assigned_project)
+            else
+              @professor_authenticated.reject_project(assigned_project)
+            end
+          end
+
           render 'api/v1/project_feedback/success_msg'
         end
 

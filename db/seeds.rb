@@ -164,7 +164,7 @@ Section.create! name: 'Log de Tiempo'
 Criterion.create! description: 'Los datos del tiempo se registran en todas las fases del proceso.',
                   section: Section.find_by_name('Log de Tiempo'),
                   order: 1
-Criterion.create! description: 'Las etapas del proceso siguen una secuencia  adecuada.',
+Criterion.create! description: 'Las etapas del proceso siguen una secuencia adecuada.',
                   section: Section.find_by_name('Log de Tiempo'),
                   order: 2
 Criterion.create! description: 'Los tiempos son registrados en los pasos correctos del proceso.',
@@ -229,7 +229,7 @@ Criterion.create! description: 'Los defectos removidos son consistentes con los 
 Criterion.create! description: 'El total del tiempo de corrección en cada fase es menor que el tiempo total dedicado a la misma.',
                   section: Section.find_by_name('Chequeo de Consistencia'),
                   order: 2, algorithm: 1, algorithm_type: 0
-Criterion.create! description: 'Los datos de los defectos y las fases son consistentes con el Log de tiempo.',
+Criterion.create! description: 'Los datos de los defectos y las fases son consistentes con el log de tiempos.',
                   section: Section.find_by_name('Chequeo de Consistencia'),
                   order: 3
 Criterion.create! description: 'Planning summary es consistente con el log de tiempos.',
