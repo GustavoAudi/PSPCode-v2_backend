@@ -143,12 +143,7 @@ class PhaseInstance < ApplicationRecord
   end
 
   def build_total_without_break_time
-    total_without_break_time = build_total_time - interruption_time
-    if total_without_break_time.negative?
-      0
-    else
-      total_without_break_time
-    end
+    build_total_time - interruption_time
   end
 
   def build_total_without_fix_time
