@@ -28,6 +28,10 @@ Rails.application.routes.draw do
               resources :phase_instances, only: %i[create update index destroy] do
                 resources :defects, only: %i[create update index destroy]
               end
+              post 'project_feedback', to: 'project_feedback#create'
+              get 'project_feedback', to: 'project_feedback#show'
+              put 'project_feedback', to: 'project_feedback#update'
+              delete 'project_feedback', to: 'project_feedback#destroy'
               get 'summary'
             end
             resources :messages, only: %i[create index]
@@ -37,10 +41,7 @@ Rails.application.routes.draw do
 
         resources :courses, only: %i[index], module: :professors do
           resources :course_project_instances, only: %i[index] do
-            resources :assigned_projects, only: %i[create] do
-              put :approve_project
-              put :reject_project
-            end
+            resources :assigned_projects, only: %i[create]
             resources :users, only: %i[index]
           end
         end

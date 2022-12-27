@@ -15,7 +15,7 @@ RailsAdmin.config do |config|
   end
   config.current_user_method(&:current_professor)
 
-  config.included_models = %w[ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance]
+  config.included_models = %w[ProfessorCourse Phase Course PspProcess Professor Project User CourseProjectInstance Section Criterion ProjectFeedback Correction]
 
   ## == Needed to reload in dev ENV ==
   config.parent_controller = ApplicationController.to_s
@@ -39,8 +39,8 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete
@@ -273,6 +273,50 @@ RailsAdmin.config do |config|
       end
       field :professors
       field :course_projects
+    end
+  end
+
+  config.model Section do
+    list do
+      field :id
+      field :name
+    end
+
+    show do
+      field :name
+      field :criteria
+    end
+
+    edit do
+      field :name
+    end
+  end
+
+  config.model Criterion do
+    list do
+      field :id
+      field :description
+      field :section
+      field :order
+      field :only_in_psp01
+    end
+
+    show do
+      field :description
+      field :section
+      field :order
+      field :algorithm
+      field :algorithm_type
+      field :only_in_psp01
+    end
+
+    edit do
+      field :description
+      field :section
+      field :order
+      field :algorithm
+      field :algorithm_type
+      field :only_in_psp01
     end
   end
 end

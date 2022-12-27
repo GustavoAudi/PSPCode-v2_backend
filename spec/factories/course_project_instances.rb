@@ -26,7 +26,7 @@
 #  index_course_project_instances_on_project_id  (project_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :course_project_instance do
     project
     course     { create :course, start_date: Date.today, end_date: Date.today + 10.days }

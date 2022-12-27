@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   private
 
   def reload_rails_admin
-    models = %w[Phase Course PspProcess Professor Project User CourseProjectInstance]
+    models = %w[Phase Course PspProcess Professor Project User CourseProjectInstance Section Criterion]
     models.each do |model|
       RailsAdmin::Config.reset_model(model)
     end

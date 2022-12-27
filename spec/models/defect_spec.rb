@@ -24,7 +24,6 @@ require 'rails_helper'
 describe Defect do
   describe 'Associations' do
     it { is_expected.to belong_to(:phase_injected) }
-    # it { is_expected.to belong_to(:phase_detected) }
   end
 
   describe 'validations' do

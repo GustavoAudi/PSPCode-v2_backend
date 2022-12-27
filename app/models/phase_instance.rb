@@ -53,11 +53,13 @@ class PhaseInstance < ApplicationRecord
   after_update :defect_deletion_consistence, if: :phase_id_changed?
 
   ## start observations for professor
+
   ONE_DAY = 1440
   PLAN_ORDER = 1
   CODE_ORDER = 3
   POST_MORTEN_ORDER = 6
 
+  ## algorithms
   def build_elapsed_time_obs
     'The stage lasts more than 24 hours.' if phase.present? && phase.order != CODE_ORDER && build_total_without_break_time > ONE_DAY
   end
@@ -85,7 +87,7 @@ class PhaseInstance < ApplicationRecord
     'Total project time is not defined.' if phase.present? && phase.order == POST_MORTEN_ORDER && (!total.present? || total.zero?)
   end
 
-  def build_phase_conflicts_obs(phase_instances)
+  def build_time_conflicts_obs(phase_instances)
     res1 = res2 = nil
     [res1, res2] unless phase_instances.present?
 
@@ -141,12 +143,7 @@ class PhaseInstance < ApplicationRecord
   end
 
   def build_total_without_break_time
-    total_without_break_time = build_total_time - interruption_time
-    if total_without_break_time.negative?
-      0
-    else
-      total_without_break_time
-    end
+    build_total_time - interruption_time
   end
 
   def build_total_without_fix_time

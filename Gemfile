@@ -47,6 +47,7 @@ gem 'wdm', '~> 0.1.1' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 group :development, :test do
   gem 'bullet', '~> 7.0.1'
   gem 'factory_bot', '~> 6.2.1'
+  gem 'factory_bot_rails'
   gem 'faker', '~> 2.20.0'
   gem 'pry-byebug', '~> 3.9.0', platform: :mri
   gem 'rails-controller-testing', '~> 1.0.5'
@@ -71,6 +72,9 @@ end
 
 group :test do
   gem 'database_cleaner', '~> 2.0.1'
+  gem 'net-imap', require: false
+  gem 'net-pop', require: false
+  gem 'net-smtp', require: false
   gem 'shoulda-matchers', '~> 5.1.0'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webmock', '~> 3.14.0'
