@@ -55,11 +55,11 @@ Rails.application.configure do
 
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = false
+    Bullet.alert = true
     Bullet.bullet_logger = true
-    Bullet.console = true
+    Bullet.console = false
     Bullet.rails_logger = true
-    Bullet.add_footer = true
+    Bullet.add_footer = false
   end
 
   config.assets.precompile += %w[devise/sessions.scss common.css.scss]

@@ -7,5 +7,6 @@ WORKDIR /myapp
 RUN bundle install
 
 # Configure the main process to run when running the image
+RUN bash -c "apt-get -y install nano"
 RUN bash -c "rm -f tmp/pids/server.pid"
 ENTRYPOINT ["rails", "server", "-b", "0.0.0.0"]
