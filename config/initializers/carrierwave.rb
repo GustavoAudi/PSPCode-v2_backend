@@ -1,14 +1,23 @@
 # frozen_string_literal: true
 
 CarrierWave.configure do |config|
-  config.storage = :fog
-  config.fog_credentials = {
-    provider: 'AWS',
-    aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-    aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
-    host: '192.168.2.192',
-    endpoint: 'http://192.168.2.192:49154',
-    path_style: true
-  }
-  config.fog_directory = ENV['S3_BUCKET_NAME']
+  if Rails.env.test?
+    config.storage = :file
+    config.enable_processing = false
+    config.asset_host = ENV['SERVER_URL']
+  else
+    break if ENV['AWS_ACCESS_KEY_ID'].blank? || ENV['AWS_SECRET_ACCESS_KEY'].blank? ||
+      ENV['S3_BUCKET_NAME'].blank?
+
+    config.storage = :fog
+    config.fog_credentials = {
+      provider: 'AWS',
+      aws_access_key_id: ENV['BUCKET_ACCESS_KEY_ID'],
+      aws_secret_access_key: ENV['BUCKET_SECRET_ACCESS_KEY'],
+      host: ENV['BUCKET_HOST'],
+      endpoint: ENV['BUCKET_ENDPOINT'],
+      path_style: true
+    }
+    config.fog_directory = ENV['S3_BUCKET_NAME']
+  end
 end
