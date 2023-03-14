@@ -56,7 +56,7 @@ Phase.create! name: 'COMPILE', description: 'This phase is to compile the code (
 Phase.create! name: 'UNIT TEST', description: 'This phase is to test the code', order: 5,
               first: false, last: false
 
-Phase.create! name: 'POST MORTEN', description: 'This phase if estimations were correct', order: 6,
+Phase.create! name: 'POST MORTEM', description: 'This phase if estimations were correct', order: 6,
               first: false, last: true
 
 # Creating Processes
