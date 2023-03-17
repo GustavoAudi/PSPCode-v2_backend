@@ -128,7 +128,7 @@ end
 
 # Creating users
 User.create! first_name: 'gustavo', last_name: 'audi', password: '12345678',
-             email: 'student1@mail.com', approved_subjects: ['Calc 2'], programming_language: 'Java', have_a_job: true, job_role: 'Software Engineer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.third
+             email: 'gusta97-2009@hotmail.com', approved_subjects: ['Calc 2'], programming_language: 'Java', have_a_job: true, job_role: 'Software Engineer', academic_experience: 'Finishing University', programming_experience: 'senior', course: Course.first, professor: Professor.third
 User.create! first_name: 'lia', last_name: 'malvarez', password: '12345678',
              email: 'student2@mail.com', approved_subjects: ['Arqui'], programming_language: 'React', have_a_job: true, job_role: 'Manager', academic_experience: 'Engineer', programming_experience: 'senior', course: Course.first, professor: Professor.third
 User.create! first_name: 'student3', last_name: 'lastname', password: '12345678',
