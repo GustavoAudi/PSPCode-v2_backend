@@ -33,7 +33,6 @@ gem 'sass-rails', '~> 6.0.0'
 gem 'sendgrid', '~> 1.2.4'
 gem 'tilt', '~> 2.0.10'
 gem 'turbolinks'
-gem 'uglifier', '~> 4.2.0'
 gem 'wdm', '~> 0.1.1' if RbConfig::CONFIG['target_os'] =~ /mswin|mingw/i
 
 # Use Redis adapter to run Action Cable in production
