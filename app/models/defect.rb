@@ -41,7 +41,7 @@ class Defect < ApplicationRecord
   ## algorithms
   def build_discovered_time_fit_obs
     if phase_instance.present? && phase_instance.start_time.present? && phase_instance.end_time.present? && discovered_time.present? &&
-       (discovered_time < phase_instance.start_time || discovered_time > phase_instance.end_time)
+      (discovered_time < phase_instance.start_time || discovered_time > phase_instance.end_time)
       return "The discovered time is outside the phase's total time."
     end
 
@@ -56,16 +56,19 @@ class Defect < ApplicationRecord
           post_phases = true
           next
         end
-        if post_phases &&
-           phase_injected.present? &&
-           phase_injected.name.present? &&
-           phase_instance_it.phase.present? &&
-           phase_instance_it.phase.name.present? &&
-           phase_instance.phase.present? &&
-           phase_instance.phase.name.present? &&
-           phase_injected.name == phase_instance_it.phase.name &&
-           phase_injected.name != phase_instance.phase.name
-          return 'The phase where the defect was injected should be prior to this one'
+
+        if phase_injected.present? &&
+          phase_injected.name.present? &&
+          phase_instance_it.phase.present? &&
+          phase_instance_it.phase.name.present? &&
+          phase_injected.name == phase_instance_it.phase.name
+
+          return 'The phase where the defect was injected should be prior to this one' if post_phases ||
+            phase_instance.phase.present? &&
+              phase_instance.phase.name.present? &&
+              phase_instance.phase.name == phase_injected.name
+
+          return nil
         end
       end
     end

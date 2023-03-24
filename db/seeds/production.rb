@@ -138,7 +138,7 @@ Criterion.create! description: 'El formulario PIP está completo.',
                   order: 1, only_in_psp01: true
 Criterion.create! description: 'Los registros del PIP muestran perspicacia y reflexión.',
                   section: Section.find_by_name('Formulario PIP'),
-                  order: 2
+                  order: 2, only_in_psp01: true
 
 Section.create! name: 'Planning Summary'
 Criterion.create! description: 'El tiempo total planificado fue ingresado correctamente.',
