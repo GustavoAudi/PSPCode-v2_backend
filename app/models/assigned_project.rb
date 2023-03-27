@@ -110,6 +110,7 @@ class AssignedProject < ApplicationRecord
     new_project_delivery.defects.with_fix_defect.each do |defect|
       defect.update! fix_defect: defect_equivalent_hash[defect.fix_defect]
     end
+    new_project_delivery.update!(file: last_project_delivery.file)
   end
 
   def user_course_project_instance_consistency
@@ -162,7 +163,7 @@ class AssignedProject < ApplicationRecord
       errors.add(:status, error_msg) unless status_was.nil?
     when 'working'
       errors.add(:status, error_msg) unless status_was == 'assigned' ||
-                                            status_was == 'need_correction'
+        status_was == 'need_correction'
     when 'being_corrected'
       errors.add(:status, error_msg) unless status_was == 'working'
 

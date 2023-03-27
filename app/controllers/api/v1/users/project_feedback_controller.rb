@@ -10,8 +10,6 @@ module Api
         helper_method :user
 
         def create
-          return render 'api/v1/project_feedback/already_exists_error', status: 403 if project_feedback.present?
-
           p_f = ProjectFeedback.create! delivered_date: Date.today, project_delivery: project_delivery
           Criterion.all.each do |c|
             if assigned_project.process.name.eql?('PSP0.1')
