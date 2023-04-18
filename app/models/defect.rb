@@ -49,8 +49,10 @@ class Defect < ApplicationRecord
   end
 
   def build_phase_injected_obs(phase_instances)
-    post_phases = false
     if phase_instances.present?
+      post_phases = false
+      has_same_name_before = false
+
       phase_instances.each do |phase_instance_it|
         if phase_instance_it.id == phase_instance.id
           post_phases = true
@@ -62,8 +64,11 @@ class Defect < ApplicationRecord
           phase_instance_it.phase.name.present? &&
           phase_injected.name == phase_instance_it.phase.name
 
-          return 'The phase where the defect was injected should be prior to this one' if post_phases
-          return nil
+          if post_phases && !has_same_name_before
+            return 'The phase where the defect was injected should be prior to this one'
+          elsif !post_phases
+            has_same_name_before = true
+          end
         end
       end
     end
