@@ -54,7 +54,6 @@ class Defect < ApplicationRecord
       phase_instances.each do |phase_instance_it|
         if phase_instance_it.id == phase_instance.id
           post_phases = true
-          next
         end
 
         if phase_injected.present? &&
@@ -63,11 +62,7 @@ class Defect < ApplicationRecord
           phase_instance_it.phase.name.present? &&
           phase_injected.name == phase_instance_it.phase.name
 
-          return 'The phase where the defect was injected should be prior to this one' if post_phases ||
-            phase_instance.phase.present? &&
-              phase_instance.phase.name.present? &&
-              phase_instance.phase.name == phase_injected.name
-
+          return 'The phase where the defect was injected should be prior to this one' if post_phases
           return nil
         end
       end
