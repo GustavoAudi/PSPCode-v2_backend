@@ -1,0 +1,25 @@
+attributes:
+  - content
+  - foreign_keys
+disconnected: true
+filename: uml_diagram
+filetype: dot
+indirect: true
+inheritance: false
+markup: true
+notation: simple
+orientation: horizontal
+polymorphism: false
+sort: false
+warn: false
+title: UML diagram
+exclude: "Delayed::Backend::ActiveRecord::Job"
+only: "ProjectFeedback,Criterion,Correction,Section,ProjectDelivery"
+only_recursion_depth: null
+prepend_primary: false
+cluster: false
+splines: null
+fonts:
+  normal: "Arial"
+  bold: "Arial Bold"
+  italic: "Arial Italic"
