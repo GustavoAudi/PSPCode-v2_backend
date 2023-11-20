@@ -1,0 +1,278 @@
+digraph App {
+rankdir = "TB";
+ranksep = "0.2";
+nodesep = "0.2";
+pad = "0.2,0.2";
+margin = "0,0";
+concentrate = "false";
+labelloc = "t";
+fontsize = "12";
+fontname = "Arial Bold";
+splines = "ortho";
+node[ shape  =  "Mrecord" , fontsize  =  "12" , fontname  =  "Arial" , margin  =  "0.07,0.05" , penwidth  =  "1.0"];
+edge[ fontname  =  "Arial" , fontsize  =  "10" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
+rankdir = "TB";
+m_AssignedProject [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">AssignedProject</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" port="course_project_instance_id">course_project_instance_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" port="user_id">user_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" port="status">status <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" port="process_id">process_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>>];
+
+m_Course [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Course</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="start_date">start_date <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="end_date">end_date <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="additional_notes">additional_notes <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+</table>>];
+
+m_CourseProjectInstance [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">CourseProjectInstance</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="project_id">project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="course_id">course_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="start_date">start_date <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="end_date">end_date <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="assigned_count">assigned_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="working_count">working_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="being_corrected_count">being_corrected_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="approved_count">approved_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="need_correction_count">need_correction_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="assigned_projects_count">assigned_projects_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Defect [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Defect</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="discovered_time">discovered_time <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="phase_injected_id">phase_injected_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="phase_instance_id">phase_instance_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="defect_type">defect_type <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="fix_defect">fix_defect <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="fixed_time">fixed_time <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60"> string</font></td></tr>
+</table>
+>];
+
+m_EventNotification [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">EventNotification</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="originator_type">originator_type <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="originator_id">originator_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="receiver_type">receiver_type <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="receiver_id">receiver_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="status">status <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="project_delivery_id">project_delivery_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Message [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Message</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="text">text <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="sender_id">sender_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="sender_type">sender_type <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="file">file <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="message_type">message_type <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_MessageNotification [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">MessageNotification</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="originator_type">originator_type <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="originator_id">originator_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="receiver_type">receiver_type <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="receiver_id">receiver_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="message_id">message_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Phase [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Phase</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="order">order <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="first">first <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+  <tr><td align="left" width="130" port="last">last <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+</table>
+>];
+
+m_PhaseInstance [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">PhaseInstance</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="start_time">start_time <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="end_time">end_time <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="phase_id">phase_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="project_delivery_id">project_delivery_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="interruption_time">interruption_time <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="plan_time">plan_time <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="plan_loc">plan_loc <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="actual_base_loc">actual_base_loc <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="modified">modified <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="deleted">deleted <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="total">total <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="pip_notes">pip_notes <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="comments">comments <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="elapsed_time">elapsed_time <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Professor [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Professor</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="encrypted_password">encrypted_password <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="sign_in_count">sign_in_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="current_sign_in_at">current_sign_in_at <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_at">last_sign_in_at <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="first_name">first_name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="last_name">last_name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="additional_notes">additional_notes <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="uid">uid <font face="Arial Italic" color="grey60"> string</font></td></tr>
+</table>
+>];
+
+m_ProfessorCourse [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">ProfessorCourse</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="professor_id">professor_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="course_id">course_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Project [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Project</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="process_id">process_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="description_file">description_file <font face="Arial Italic" color="grey60"> string</font></td></tr>
+</table>
+>];
+
+m_ProjectDelivery [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">ProjectDelivery</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="file">file <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="version_number">version_number <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_PspProcess [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">PspProcess</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="has_plan_time">has_plan_time <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+  <tr><td align="left" width="130" port="has_plan_loc">has_plan_loc <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+  <tr><td align="left" width="130" port="has_pip">has_pip <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+</table>
+>];
+
+m_PspProcessPhase [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">PspProcessPhase</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="phase_id">phase_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="psp_process_id">psp_process_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_Status [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Status</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="user_id">user_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="value">value <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="project_delivery_id">project_delivery_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+m_User [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">User</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="encrypted_password">encrypted_password <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="sign_in_count">sign_in_count <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="current_sign_in_at">current_sign_in_at <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="last_sign_in_at">last_sign_in_at <font face="Arial Italic" color="grey60"> date</font></td></tr>
+  <tr><td align="left" width="130" port="first_name">first_name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="last_name">last_name <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="uid">uid <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="approved_subjects">approved_subjects <font face="Arial Italic" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="programming_language">programming_language <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="have_a_job">have_a_job <font face="Arial Italic" color="grey60"> boolean</font></td></tr>
+  <tr><td align="left" width="130" port="job_role">job_role <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="academic_experience">academic_experience <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="programming_experience">programming_experience <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="collegue_career_progress">collegue_career_progress <font face="Arial Italic" color="grey60"> string</font></td></tr>
+  <tr><td align="left" width="130" port="course_id">course_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="professor_id">professor_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+  <tr><td align="left" width="130" port="current_assigned_project_id">current_assigned_project_id <font face="Arial Italic" color="grey60"> integer</font></td></tr>
+</table>
+>];
+
+  m_Project -> m_CourseProjectInstance [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Course -> m_CourseProjectInstance [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_CourseProjectInstance -> m_AssignedProject [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_CourseProjectInstance -> m_User [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Course -> m_User [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Course -> m_ProfessorCourse [arrowhead = "normal", arrowtail = "none", weight = "4"];
+  m_Course -> m_Professor [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Course -> m_Project [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Professor -> m_ProfessorCourse [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Professor -> m_Message [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_Message [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Professor -> m_EventNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_EventNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Professor -> m_MessageNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_MessageNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_AssignedProject [arrowhead = "normal", arrowtail = "none", weight = "3"];
+  m_Professor -> m_User [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_PspProcess -> m_Project [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_PspProcess -> m_PspProcessPhase [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_PspProcess -> m_Phase [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Phase -> m_PspProcessPhase [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Phase -> m_PhaseInstance [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_AssignedProject -> m_ProjectDelivery [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_AssignedProject -> m_Status [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_AssignedProject -> m_Message [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_PspProcess -> m_AssignedProject [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Phase -> m_Defect [arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_PhaseInstance -> m_Defect [arrowhead = "normal", arrowtail = "none", weight = "2", constraint = "false"];
+  m_AssignedProject -> m_EventNotification [arrowhead = "normal", arrowtail = "none", weight = "3"];
+  m_AssignedProject -> m_MessageNotification [arrowhead = "normal", arrowtail = "none", weight = "3"];
+  m_ProjectDelivery -> m_EventNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Message -> m_MessageNotification [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_ProjectDelivery -> m_PhaseInstance [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_ProjectDelivery -> m_Status [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_ProjectDelivery -> m_Defect [arrowhead = "normal", arrowtail = "none", weight = "3"];
+  m_User -> m_Status [arrowhead = "normal", arrowtail = "none", weight = "1"];
+}

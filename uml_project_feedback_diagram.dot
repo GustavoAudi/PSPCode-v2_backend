@@ -1,0 +1,69 @@
+digraph App {
+rankdir = "TB";
+ranksep = "0.2";
+nodesep = "0.2";
+pad = "0.2,0.2";
+margin = "0,0";
+concentrate = "false";
+labelloc = "t";
+fontsize = "12";
+fontname = "Arial Bold";
+splines = "ortho";
+node[ shape  =  "Mrecord" , fontsize  =  "12" , fontname  =  "Arial" , margin  =  "0.07,0.05" , penwidth  =  "1.0"];
+edge[ fontname  =  "Arial" , fontsize  =  "10" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
+rankdir = "TB";
+
+m_Correction [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Correction</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="approved">approved <font face="Arial Italic" color="grey60">   boolean</font></td></tr>
+  <tr><td align="left" width="130" port="comment">comment <font face="Arial Italic" color="grey60">   string</font></td></tr>
+  <tr><td align="left" width="130" port="criterion_id">criterion_id <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+  <tr><td align="left" width="130" port="project_feedback_id">project_feedback_id <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+</table>>];
+
+m_Criterion [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Criterion</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="description">description <font face="Arial Italic" color="grey60">   string</font></td></tr>
+  <tr><td align="left" width="130" port="only_in_psp01">only_in_psp01 <font face="Arial Italic" color="grey60">   boolean</font></td></tr>
+  <tr><td align="left" width="130" port="section_id">section_id <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+  <tr><td align="left" width="130" port="order">order <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+  <tr><td align="left" width="130" port="algorithm">algorithm <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+  <tr><td align="left" width="130" port="algorithm_type">algorithm_type <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+</table>>];
+
+m_ProjectDelivery [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">ProjectDelivery</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="file">file <font face="Arial Italic" color="grey60">   string</font></td></tr>
+  <tr><td align="left" width="130" port="assigned_project_id">assigned_project_id <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+  <tr><td align="left" width="130" port="version_number">version_number <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+</table>>];
+
+m_ProjectFeedback [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">ProjectFeedback</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="comment">comment <font face="Arial Italic" color="grey60">   string</font></td></tr>
+  <tr><td align="left" width="130" port="approved">approved <font face="Arial Italic" color="grey60">   boolean</font></td></tr>
+  <tr><td align="left" width="130" port="delivered_date">delivered_date <font face="Arial Italic" color="grey60">   date</font></td></tr>
+  <tr><td align="left" width="130" port="reviewed_date">reviewed_date <font face="Arial Italic" color="grey60">   date</font></td></tr>
+  <tr><td align="left" width="130" port="project_delivery_id">project_delivery_id <font face="Arial Italic" color="grey60">   integer</font></td></tr>
+</table>>];
+
+m_Section [label = <<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td><font face="Arial Bold" point-size="14">Section</font></td></tr>
+  <hr/>
+  <tr><td>&nbsp;</td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arial Italic" color="grey60">   string</font></td></tr>
+</table>>];
+
+  m_Section -> m_Criterion [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Criterion -> m_Correction [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_ProjectFeedback -> m_Correction [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_ProjectDelivery -> m_ProjectFeedback [arrowhead = "normal", arrowtail = "none", weight = "2"];
+}

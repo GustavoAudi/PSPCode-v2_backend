@@ -79,7 +79,7 @@ class Professor < ApplicationRecord
                                Puedes ver el feedback completo en la pestaña CORRECTION.',
                         message_type: :rejected,
                         sender: self)
-    MailerApprovedNotificationJob.perform_now('need_correction',
+    MailerRejectedNotificationJob.perform_now('need_correction',
                                               assigned_project.user,
                                               self,
                                               assigned_project,

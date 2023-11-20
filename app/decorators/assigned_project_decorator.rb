@@ -5,6 +5,6 @@ class AssignedProjectDecorator < Draper::Decorator
 
   def project_url
     ENV['HOST_URL'] +
-      "students/#{user_id}/projects/#{id}"
+      "/#/students/#{user_id}/projects/#{id}"
   end
 end
