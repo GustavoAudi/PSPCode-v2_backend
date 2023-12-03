@@ -63,9 +63,6 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def welcome_email(user, generated_password)
-    if Rails.env.development? || Rails.env.test?
-      p "Mail User: #{user.email} | Password: #{generated_password}" # Print local password
-    end
     return unless use_sendgrid_service?
 
     @user = user.decorate

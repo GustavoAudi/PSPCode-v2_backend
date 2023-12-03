@@ -41,7 +41,7 @@ class Defect < ApplicationRecord
   ## algorithms
   def build_discovered_time_fit_obs
     if phase_instance.present? && phase_instance.start_time.present? && phase_instance.end_time.present? && discovered_time.present? &&
-       (discovered_time < phase_instance.start_time || discovered_time > phase_instance.end_time)
+      (discovered_time < phase_instance.start_time || discovered_time > phase_instance.end_time)
       return "The discovered time is outside the phase's total time."
     end
 
@@ -49,23 +49,26 @@ class Defect < ApplicationRecord
   end
 
   def build_phase_injected_obs(phase_instances)
-    post_phases = false
     if phase_instances.present?
+      post_phases = false
+      has_same_name_before = false
+
       phase_instances.each do |phase_instance_it|
         if phase_instance_it.id == phase_instance.id
           post_phases = true
-          next
         end
-        if post_phases &&
-           phase_injected.present? &&
-           phase_injected.name.present? &&
-           phase_instance_it.phase.present? &&
-           phase_instance_it.phase.name.present? &&
-           phase_instance.phase.present? &&
-           phase_instance.phase.name.present? &&
-           phase_injected.name == phase_instance_it.phase.name &&
-           phase_injected.name != phase_instance.phase.name
-          return 'The phase where the defect was injected should be prior to this one'
+
+        if phase_injected.present? &&
+          phase_injected.name.present? &&
+          phase_instance_it.phase.present? &&
+          phase_instance_it.phase.name.present? &&
+          phase_injected.name == phase_instance_it.phase.name
+
+          if post_phases && !has_same_name_before
+            return 'The phase where the defect was injected should be prior to this one'
+          elsif !post_phases
+            has_same_name_before = true
+          end
         end
       end
     end

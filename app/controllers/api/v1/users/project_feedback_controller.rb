@@ -10,8 +10,6 @@ module Api
         helper_method :user
 
         def create
-          return render 'api/v1/project_feedback/already_exists_error', status: 403 if project_feedback.present?
-
           p_f = ProjectFeedback.create! delivered_date: Date.today, project_delivery: project_delivery
           Criterion.all.each do |c|
             if assigned_project.process.name.eql?('PSP0.1')
@@ -27,7 +25,7 @@ module Api
           return render 'api/v1/project_feedback/not_found_error', status: 404 unless project_feedback.present?
 
           @phase_instances = project_delivery.phase_instances.order(:id).page params[:page]
-          @project_feedback = project_delivery.project_feedback
+          @project_feedback = project_feedback
           render 'api/v1/project_feedback/show'
         end
 
@@ -72,7 +70,7 @@ module Api
         end
 
         def project_feedback
-          @project_feedback ||= project_delivery.project_feedback
+          @project_feedback ||= ProjectFeedback.where(project_delivery_id: project_delivery.id).order(:id).last
         end
 
         def user
