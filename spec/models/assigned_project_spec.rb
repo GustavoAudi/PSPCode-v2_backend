@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assigned_projects
@@ -135,7 +137,7 @@ describe AssignedProject do
           assigned_project.update! status: :approved
         end
 
-        [:assigned, :working, :being_corrected, :need_correction].each do |status|
+        %i[assigned working being_corrected need_correction].each do |status|
           context 'when trying to assign a new state' do
             it 'raise an eror' do
               assigned_project.status = status

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -16,7 +16,7 @@ module Api
         end
 
         def index
-          @messages = assigned_project.messages.page params[:page]
+          @messages = assigned_project.messages
           render 'api/v1/messages/index'
         end
 

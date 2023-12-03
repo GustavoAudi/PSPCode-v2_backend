@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -43,22 +45,20 @@
 #  index_users_on_uid_and_provider             (uid,provider) UNIQUE
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :user do
     email                { Faker::Internet.unique.email }
     first_name           { Faker::Name.first_name }
     last_name            { Faker::Name.last_name }
     programming_language { 'Ruby' }
     have_a_job           { false }
-    password             { Faker::Internet.password(8) }
-    uid                  { Faker::Number.unique.number(10) }
+    password             { Faker::Internet.password(min_length: 8) }
+    uid                  { Faker::Number.unique.number(digits: 10) }
     professor
     course
 
     after(:build) do |user|
-      if user.course.present? && user.professor.present?
-        user.course.professors << user.professor
-      end
+      user.course.professors << user.professor if user.course.present? && user.professor.present?
       user.send(:set_last_seen_values)
     end
   end
@@ -66,6 +66,6 @@ FactoryGirl.define do
   trait :with_fb do
     password nil
     email nil
-    provider 'facebook'
+    provider { 'facebook' }
   end
 end

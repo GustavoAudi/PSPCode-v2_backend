@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180325184856) do
+ActiveRecord::Schema.define(version: 2022_10_16_011830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 20180325184856) do
     t.index ["course_project_instance_id"], name: "index_assigned_projects_on_course_project_instance_id"
     t.index ["process_id"], name: "index_assigned_projects_on_process_id"
     t.index ["user_id"], name: "index_assigned_projects_on_user_id"
+  end
+
+  create_table "corrections", force: :cascade do |t|
+    t.boolean "approved", default: false
+    t.string "comment"
+    t.bigint "criterion_id", null: false
+    t.bigint "project_feedback_id", null: false
+    t.index ["criterion_id"], name: "index_corrections_on_criterion_id"
+    t.index ["project_feedback_id"], name: "index_corrections_on_project_feedback_id"
   end
 
   create_table "course_project_instances", force: :cascade do |t|
@@ -54,6 +63,16 @@ ActiveRecord::Schema.define(version: 20180325184856) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", null: false
+  end
+
+  create_table "criteria", force: :cascade do |t|
+    t.string "description", null: false
+    t.boolean "only_in_psp01", default: false
+    t.bigint "section_id", null: false
+    t.integer "order", null: false
+    t.integer "algorithm"
+    t.integer "algorithm_type"
+    t.index ["section_id"], name: "index_criteria_on_section_id"
   end
 
   create_table "defects", force: :cascade do |t|
@@ -214,6 +233,15 @@ ActiveRecord::Schema.define(version: 20180325184856) do
     t.index ["assigned_project_id"], name: "index_project_deliveries_on_assigned_project_id"
   end
 
+  create_table "project_feedbacks", force: :cascade do |t|
+    t.string "comment"
+    t.boolean "approved", default: false
+    t.date "delivered_date", null: false
+    t.date "reviewed_date"
+    t.bigint "project_delivery_id", null: false
+    t.index ["project_delivery_id"], name: "index_project_feedbacks_on_project_delivery_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "process_id", null: false
@@ -241,6 +269,10 @@ ActiveRecord::Schema.define(version: 20180325184856) do
     t.boolean "has_pip", default: false
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
   create_table "statuses", force: :cascade do |t|
     t.bigint "assigned_project_id", null: false
     t.bigint "user_id", null: false
@@ -256,6 +288,7 @@ ActiveRecord::Schema.define(version: 20180325184856) do
   create_table "users", id: :serial, force: :cascade do |t|
     t.string "email"
     t.string "encrypted_password", default: "", null: false
+    t.boolean "allow_password_change", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

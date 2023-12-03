@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assigned_projects
@@ -17,7 +19,7 @@
 #  index_assigned_projects_on_user_id                     (user_id)
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :assigned_project do
     course_project_instance
     user { create :user, course: course_project_instance.course }

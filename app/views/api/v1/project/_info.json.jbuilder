@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id project.id
 json.instructions project.description_file.url
 json.process do

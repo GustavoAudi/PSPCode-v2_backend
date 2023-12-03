@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'POST api/v1/users/', type: :request do
@@ -53,7 +55,7 @@ describe 'POST api/v1/users/', type: :request do
       it 'does not create a user' do
         expect do
           post user_registration_path, params: params, as: :json
-        end.not_to change { User.count }
+        end.not_to(change { User.count })
       end
 
       it 'does not return a successful response' do

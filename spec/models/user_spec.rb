@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -76,8 +78,7 @@ describe User do
 
       context 'when professor and course are not blank' do
         context 'when professor does not belong to the course' do
-          let!(:user) { build :user }
-
+          let!(:user) { build :user, professor: professor, course: course }
           it 'raises professor validation' do
             ProfessorCourse.destroy_all
             expect(user.valid?).to be_falsey
@@ -86,8 +87,7 @@ describe User do
         end
 
         context 'when professor belongs to the course' do
-          let!(:user) { build :user }
-
+          let!(:user) { build :user, professor: professor, course: course }
           it 'does not raise professor validation' do
             expect(user.valid?).to be_truthy
           end
@@ -96,8 +96,10 @@ describe User do
     end
 
     describe '#email_user_professor_uniqueness' do
+      let!(:professor) { create :professor }
+      let!(:course) { create :course }
       let!(:email) { Faker::Internet.email }
-      let!(:user)  { build :user, email: email }
+      let!(:user) { build :user, email: email, professor: professor, course: course }
 
       context 'when user is not taken by any user or professor' do
         it 'validates user' do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: professors
@@ -31,12 +33,12 @@
 #  index_professors_on_uid_and_provider      (uid,provider) UNIQUE
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :professor do
     email            { Faker::Internet.unique.email }
     first_name       { Faker::Name.first_name }
     last_name        { Faker::Name.last_name }
     additional_notes { Faker::Lorem.sentence }
-    password         { Faker::Internet.password(8) }
+    password         { Faker::Internet.password(min_length: 8) }
   end
 end

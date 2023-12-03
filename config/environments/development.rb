@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -12,6 +14,9 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
+  # host for deploy.
+  config.hosts << 'svc-dev.psp-course.com'
+
   # Enable/disable caching. By default caching is disabled.
   if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
@@ -25,7 +30,6 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-
 
   config.active_job.queue_adapter = :delayed_job
 
@@ -51,12 +55,12 @@ Rails.application.configure do
 
   config.after_initialize do
     Bullet.enable = true
-    Bullet.alert = false
+    Bullet.alert = true
     Bullet.bullet_logger = true
-    Bullet.console = true
+    Bullet.console = false
     Bullet.rails_logger = true
-    Bullet.add_footer = true
+    Bullet.add_footer = false
   end
 
-  config.assets.precompile += %w(devise/sessions.scss common.css.scss)
+  config.assets.precompile += %w[devise/sessions.scss common.css.scss]
 end

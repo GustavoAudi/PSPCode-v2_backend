@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -13,7 +13,7 @@ module Api
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
       rescue_from ActiveRecord::RecordInvalid,         with: :render_record_invalid
       rescue_from ActionController::RoutingError,      with: :render_not_found
-      rescue_from ActionController::UnknownController, with: :render_not_found
+      rescue_from ActionController::UnknownFormat, with: :render_not_found
       rescue_from AbstractController::ActionNotFound,  with: :render_not_found
       rescue_from Exceptions::AuthorizationException,  with: :unauthorized_exception
 

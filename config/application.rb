@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 require 'rails'
@@ -26,12 +28,13 @@ module App
 
     config.secret_key_base = ENV['SECRET_KEY_BASE']
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += %W[#{config.root}/lib]
 
     ActionMailer::Base.smtp_settings = {
       address: 'smtp.sendgrid.net',
-      port: 25,
-      domain: 'https://psp-staging.herokuapp.com',
+      port: 465,
+      ssl: true,
+      domain: 'https://www.psp-course.com',
       authentication: :plain,
       user_name: ENV['SENDGRID_USERNAME'],
       password: ENV['SENDGRID_PASSWORD']

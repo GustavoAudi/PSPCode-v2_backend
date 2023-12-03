@@ -1,4 +1,4 @@
-# encoding: utf-8
+# frozen_string_literal: true
 
 module Api
   module V1
@@ -21,6 +21,7 @@ module Api
         end
 
         def index
+          @phase_instances = phase_instance.project_delivery.phase_instances.order(:id).page params[:page]
           render 'api/v1/defects/index'
         end
 

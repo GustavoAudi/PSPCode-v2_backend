@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: courses
@@ -12,11 +14,11 @@
 #  name             :string           not null
 #
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :course do
-    name             { "Course #{Faker::Number.between(1900, 2018)}" }
+    name             { "Course #{Faker::Number.between(from: 1900, to: 2018)}" }
     start_date       { Date.today }
-    end_date         { Faker::Date.forward(23) }
+    end_date         { Faker::Date.forward(days: 23) }
     description      { Faker::Lorem.sentence }
     additional_notes { Faker::Lorem.sentence }
   end

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'POST api/v1/users/sign_in', type: :request do
   context 'for students' do
     let(:password) { 'password' }
-    let(:user)     { create(:user, password: password) }
+    let(:user) { create(:user, password: password) }
 
     context 'with correct params' do
       before do
@@ -50,7 +52,7 @@ describe 'POST api/v1/users/sign_in', type: :request do
 
         expect(response).to be_unauthorized
         expected_response = {
-          errors: ['Invalid login credentials. Please try again.']
+          errors: ['Invalid login credentials. Please try again.'], 'success' => false
         }.with_indifferent_access
         expect(json).to eq(expected_response)
       end
@@ -58,7 +60,7 @@ describe 'POST api/v1/users/sign_in', type: :request do
   end
 
   context 'for professors' do
-    let(:password)  { 'password' }
+    let(:password) { 'password' }
     let(:professor) { create(:professor, password: password) }
 
     context 'with correct params' do
@@ -104,7 +106,7 @@ describe 'POST api/v1/users/sign_in', type: :request do
 
         expect(response).to be_unauthorized
         expected_response = {
-          errors: ['Invalid login credentials. Please try again.']
+          errors: ['Invalid login credentials. Please try again.'], 'success' => false
         }.with_indifferent_access
         expect(json).to eq(expected_response)
       end
