@@ -10,22 +10,14 @@
 6. `rake db:migrate`.
 7. `rails s`.
 
-## Optional configuration
-
-- Set your [frontend URL](https://github.com/cyu/rack-cors#origin) in `config/initializers/rack_cors.rb`.
-- Set your mail sender in `config/initializers/devise.rb`.
-- Decrease `token_lifespan` in `config/initializers/devise_token_auth.rb` if the frontend is a Web-app.
-- Remove Facebook code with `git revert a8319a37ab8d038399a7a6bd74fe3869bb3f3ddc`.
-- Config your timezone accordingly in `application.rb`.
-
-## Deploys
+## Deploy the app
 
 - Install Docker and AWS CLI in your PC.
 - Retrieve an authentication token and authenticate your Docker client to your registry.
   Use the AWS CLI:
   - `aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/m9q5t8l6`.
 - Build your Docker image using the following command:
-  - `docker build -t psp-code-backend`.
+  - `docker build -t psp-code-backend .`.
 - After the build completes, tag your image so you can push the image to this repository:
   - `docker tag psp-code-backend:{version} public.ecr.aws/m9q5t8l6/psp-code-backend:{version}`
 - Run the following command to push this image to your newly created AWS repository:
