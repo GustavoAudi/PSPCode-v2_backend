@@ -91,9 +91,7 @@ module Api
 
         # parse header for values necessary for authentication
         uid        = request.headers[uid_name] || params[uid_name]
-        @token           = DeviseTokenAuth::TokenFactory.new unless @token
-        @token.token     ||= request.headers[access_token_name] || params[access_token_name] || parsed_auth_cookie[access_token_name] || decoded_authorization_token[access_token_name]
-        @token.client ||= request.headers[client_name] || params[client_name] || parsed_auth_cookie[client_name] || decoded_authorization_token[client_name]
+        @token     ||= request.headers[access_token_name] || params[access_token_name]
         @client_id ||= request.headers[client_name] || params[client_name]
 
         # client_id isn't required, set to 'default' if absent
@@ -114,17 +112,17 @@ module Api
         return @resource if @resource && (@resource.class == rc || @resource.class == alt_rc)
 
         # ensure we clear the client_id
-        if !@token.token
+        if !@token
           @client_id = nil
           return
         end
 
-        return false unless @token.token
+        return false unless @token
 
         # mitigate timing attacks by finding by uid instead of auth token
         user = uid && (rc.find_by(uid: uid) || alt_rc.find_by(uid: uid))
 
-        if user && user.valid_token?(@token.token, @client_id)
+        if user && user.valid_token?(@token, @client_id)
           # sign_in with bypass: true will be deprecated in the next version of Devise
           if self.respond_to? :bypass_sign_in
             bypass_sign_in(user, scope: :user)
