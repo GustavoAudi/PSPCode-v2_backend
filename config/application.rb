@@ -34,7 +34,7 @@ module App
       address: 'smtp.sendgrid.net',
       port: 465,
       ssl: true,
-      domain: 'https://www.psp-course.com',
+      domain: 'https://www.pspcode.com',
       authentication: :plain,
       user_name: ENV['SENDGRID_USERNAME'],
       password: ENV['SENDGRID_PASSWORD']
