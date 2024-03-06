@@ -6,16 +6,6 @@ module Api
       protect_from_forgery with: :null_session
       include Concerns::ActAsApiRequest
 
-      def facebook
-        user_params = FacebookService.new(params[:access_token]).profile
-        @resource = User.from_social_provider 'facebook', user_params
-        custom_sign_in
-      rescue Koala::Facebook::AuthenticationError
-        render json: { error: 'Not Authorized' }, status: :forbidden
-      rescue ActiveRecord::RecordNotUnique
-        render json: { error: 'User already registered with email/password' }, status: :bad_request
-      end
-
       # Rubocop disabled since the method is extracted from the gem to monkeypatch authentication
       # for both user and professor
       # rubocop:disable all
@@ -50,8 +40,7 @@ module Api
         if @resource && valid_params?(field, q_value) && (!@resource.respond_to?(:active_for_authentication?) || @resource.active_for_authentication?)
           valid_password = @resource.valid_password?(resource_params[:password])
           if (@resource.respond_to?(:valid_for_authentication?) && !@resource.valid_for_authentication? { valid_password }) || !valid_password
-            render_create_error_bad_credentials
-            return
+            return render_create_error_bad_credentials
           end
           @token = @resource.create_token
           @resource.save
@@ -91,62 +80,52 @@ module Api
 
         # parse header for values necessary for authentication
         uid        = request.headers[uid_name] || params[uid_name]
-        @token     ||= request.headers[access_token_name] || params[access_token_name]
-        @client_id ||= request.headers[client_name] || params[client_name]
+        @token           = DeviseTokenAuth::TokenFactory.new unless @token
+        @token.token     ||= request.headers[access_token_name] || params[access_token_name]
+        @token.client ||= request.headers[client_name] || params[client_name]
 
         # client_id isn't required, set to 'default' if absent
-        @client_id ||= 'default'
+        @token.client ||= 'default'
 
         # check for an existing user, authenticated via warden/devise, if enabled
         if DeviseTokenAuth.enable_standard_devise_support
           devise_warden_user = warden.user(rc.to_s.underscore.to_sym)
           devise_warden_user = warden.user(alt_rc.to_s.underscore.to_sym) if devise_warden_user.blank?
-          if devise_warden_user && devise_warden_user.tokens[@client_id].nil?
+          if devise_warden_user && devise_warden_user.tokens[@token.client].nil?
             @used_auth_by_token = false
             @resource = devise_warden_user
-            @resource.create_new_auth_token
           end
         end
 
         # user has already been found and authenticated
         return @resource if @resource && (@resource.class == rc || @resource.class == alt_rc)
 
-        # ensure we clear the client_id
-        if !@token
-          @client_id = nil
+        # ensure we clear the client
+        unless @token.present?
+          @token.client = nil
           return
         end
-
-        return false unless @token
 
         # mitigate timing attacks by finding by uid instead of auth token
         user = uid && (rc.find_by(uid: uid) || alt_rc.find_by(uid: uid))
 
-        if user && user.valid_token?(@token, @client_id)
+        if user && user.valid_token?(@token.token, @token.client)
           # sign_in with bypass: true will be deprecated in the next version of Devise
           if self.respond_to? :bypass_sign_in
             bypass_sign_in(user, scope: :user)
           else
-            sign_in(:user, user, store: false, bypass: true)
+            sign_in(:user, user, store: false, event: :fetch, bypass: DeviseTokenAuth.bypass_sign_in)
           end
-          return @resource = user
+          @resource = user
         else
           # zero all values previously set values
-          @client_id = nil
-          return @resource = nil
+          @token.client = nil
+          @resource = nil
         end
       end
 
       def json_request?
         request.format.json?
-      end
-
-      def custom_sign_in
-        sign_in(:api_v1_user, @resource)
-        new_auth_header = @resource.create_new_auth_token
-        # update response with the header that will be required by the next request
-        response.headers.merge!(new_auth_header)
-        render_create_success
       end
     end
   end

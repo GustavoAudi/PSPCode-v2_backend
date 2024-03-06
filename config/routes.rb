@@ -57,9 +57,6 @@ Rails.application.routes.draw do
         resource :professor, only: :update
         resource :user, only: :update do
           get :profile
-          controller :sessions do
-            post :facebook, on: :collection
-          end
         end
       end
     end
